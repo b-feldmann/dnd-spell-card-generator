@@ -23,7 +23,7 @@ export async function GET(request: Request) {
   console.log(params)
   console.log(params.get('foo'))
 
-  const pdf = await saveAsPdf("http://localhost:3000/spells");
+  const pdf = await saveAsPdf("http://localhost:3000/spells/book");
 
   return new Response(pdf);
 }

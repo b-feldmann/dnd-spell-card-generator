@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, ConfigProvider } from 'antd';
+import Link from 'next/link'
 
 import theme from '../../theme/themeConfig';
 
@@ -24,9 +25,9 @@ export default async function Page() {
 
     const spellcard = (spell: any) => (
         <p>
-            <a href={'spells/' + spell.name.toLowerCase().split(' ').join('-')}>
+            <Link href={'/spells/' + spell.name.toLowerCase().split(' ').join('-')}>
                 <Button type="default">{spell.name}</Button>
-            </a>
+            </Link>
         </p>
     )
 

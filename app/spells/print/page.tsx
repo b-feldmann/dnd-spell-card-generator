@@ -5,7 +5,7 @@ import SpellBook from "@/app/components/SpellBook";
 import PrintSpellBook from "@/app/components/PrintSpellBook";
 
 export default async function Page() {
-  const columns = 5;
+  const columns = 3;
   const spells = [
     "guidance",
     "sacred-flame",
@@ -25,7 +25,7 @@ export default async function Page() {
   //<SpellBook spellNames={spells} columns={columns} />
   return (
     <ConfigProvider theme={theme}>
-      <SpellBook spellNames={spells} columns={columns} />
+      <SpellBook spellNames={spells} columns={columns} print />
     </ConfigProvider>
   );
 }

@@ -1,3 +1,33 @@
+interface SpellAreaOfEffect {
+  size?: number
+  type?: string
+}
+
+interface SpellModel {
+  name: String,
+  desc?: string[],
+  level: number,
+  higher_level?: string[],
+  casting_time?: string,
+  range?: string,
+  components?: string[],
+  area_of_effect?: SpellAreaOfEffect,
+  ritual?: boolean,
+  duration?: string,
+  concentration?: boolean,
+  attack_type?: string,
+  damage?: any,
+  school: {
+    name: string,
+  },
+  classes?: {
+    names: string
+  }[],
+  subclasses?: {
+    name: string
+  }[]
+}
+
 async function getSpell(spellName: string) {
   const api = "https://www.dnd5eapi.co/api/";
   const route = "spells/" + spellName;
@@ -16,10 +46,13 @@ async function getSpell(spellName: string) {
   return res.json();
 }
 
+export const CARD_WIDTH = 250;
+export const CARD_HEIGHT = 356;
+
 export default async function SpellCard({ spellName }: { spellName: string }) {
   const spell = await getSpell(spellName);
 
-  console.log(spell);
+  // console.log(spell);
 
   if (!spell) return <h1>loading...</h1>;
 
@@ -31,10 +64,7 @@ export default async function SpellCard({ spellName }: { spellName: string }) {
     return `${level}th-level`;
   };
 
-  const getAreaOfEffectDescription = (areaOfEffect: {
-    type: string;
-    size: string;
-  }) => {
+  const getAreaOfEffectDescription = (areaOfEffect?: SpellAreaOfEffect) => {
     if (!areaOfEffect) return "";
     const { type, size } = areaOfEffect;
 
@@ -46,7 +76,7 @@ export default async function SpellCard({ spellName }: { spellName: string }) {
     level,
     school: { name: school },
     desc,
-    higher_level,
+    higher_level: higherLevel,
     casting_time,
     duration,
     range,
@@ -54,7 +84,7 @@ export default async function SpellCard({ spellName }: { spellName: string }) {
     ritual,
     components,
     area_of_effect: areaOfEffect,
-  } = spell;
+  }: SpellModel = spell;
 
   const levelAsText = ordinalLevel(level);
   const areaOfEffectDescription = getAreaOfEffectDescription(areaOfEffect);
@@ -62,22 +92,32 @@ export default async function SpellCard({ spellName }: { spellName: string }) {
   const spellType =
     level === 0 ? `${school} ${levelAsText}` : `${levelAsText} ${school}`;
 
+  const createAtHigherLevels = () => {
+    if(!higherLevel || higherLevel.length > 0) return ''
+
+    return (
+      <div>
+        <h3>At Higher Levels:</h3>
+        <p>{higherLevel}</p>
+      </div>
+    )
+  }
+
   return (
-    <div className="text-[100%] p-4 box-border font-sans w-72 aspect-[2/3] min-h-0 overflow-hidden border-2 border-solid border-indigo-600">
+    <div className="text-[100%] p-2 box-border font-sans w-[250px] h-[358px] min-h-0 overflow-hidden border-2 border-solid border-indigo-600">
       <p className="mx-8 text-lg text-center font-semibold border-0 border-b-2 border-solid">
         {name}
       </p>
-      <div className="text-sm leading-4">
+      <div className="text-[11px] leading-4">
         <div>{duration}</div>
         <div>{casting_time}</div>
         <div>{range + " " + areaOfEffectDescription}</div>
         <div>{components}</div>
       </div>
 
-      <div className="text-sm leading-4">
+      <div className="text-[9px] leading-1">
         <p>{desc}</p>
-        <h3>At Higher Levels:</h3>
-        <p>{higher_level}</p>
+        {createAtHigherLevels()}
       </div>
 
       <p>Concentration: {concentration ? "yes" : "no"}</p>

@@ -1,40 +1,45 @@
 "use client";
 
+import { useRef } from 'react';
 import AutoSizer from "react-virtualized-auto-sizer";
+import { CARD_HEIGHT, CARD_WIDTH } from './SpellCard';
 
-export default function ScaleToRender({
-  children,
-  divider,
+export default function ScaleToParent({
+  children
 }: {
   children: React.ReactNode;
-  divider: number;
 }) {
+  const ref = useRef(null)
+
+  const resizeFactor = (width: number) => width / CARD_WIDTH;
+
   return (
     <AutoSizer
+      ref={ref}
+      disableHeight
+      className="min-h-0"
       style={{
-        width: `auto`,
+        width: "auto",
         height: "auto",
       }}
+      onResize={({ width }) => {
+        if(ref?.current?.props?.style) {
+          ref.current.props.style.width = `${width}px`
+          ref.current.props.style.height = `${CARD_HEIGHT * resizeFactor(width)}px`
+        }
+      }}
     >
-      {({ height, width }) => {
+      {({ width }) => {
         console.log(width);
-
-        const containerWidth = divider === 0 ? width : width / divider;
-        const cardWith = 300;
-        const cardHeight = (cardWith / 2) * 3;
-
-        const resizeFactor = (width: number) => {
-          return width / cardWith;
-        };
 
         return (
           <div
+            className='print-dimensions'
             style={{
-              transform: `scale(${resizeFactor(containerWidth)})`,
+              transform: `scale(${resizeFactor(width)})`,
               transformOrigin: "top left",
-              // width: `${(cardWith / containerWidth) * 100}%`,
-              width: `${cardWith}px`,
-              height: `${cardHeight}px`,
+              width: `${CARD_WIDTH}px`,
+              height: `${CARD_HEIGHT}px`,
             }}
           >
             {children}

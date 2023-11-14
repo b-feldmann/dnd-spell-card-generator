@@ -1,4 +1,4 @@
-import SpellCard from "@/app/components/SpellCard";
+import SpellCard from "@/components/SpellCard/SpellCard";
 
 export default async function Page({
   params,

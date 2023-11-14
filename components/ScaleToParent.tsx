@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import AutoSizer from "react-virtualized-auto-sizer";
-import { CARD_HEIGHT, CARD_WIDTH } from './SpellCard';
+import { CARD_HEIGHT, CARD_WIDTH } from './SpellCard/SpellCard';
 
 export default function ScaleToParent({
   children
@@ -34,7 +34,6 @@ export default function ScaleToParent({
 
         return (
           <div
-            className='print-dimensions'
             style={{
               transform: `scale(${resizeFactor(width)})`,
               transformOrigin: "top left",

@@ -22,29 +22,6 @@
     margin: 0;
     padding: 0;
   }
-
-  .print-grid > div {
-    background-color: red;
-  }
-
-  .print-grid > div > div {
-    background-color: yellow;
-  }
-
-  .print-columns2 > div,
-  .print-dimensions2 > div,
-  .print-dimensions2 {
-    width: 400px !important;
-    height: 600px !important;
-  }
-
-  .print-dimensions2 {
-    transform: scale(0.8) !important;
-  }
-
-  .print-columns2 {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  }
 }
 
 body {

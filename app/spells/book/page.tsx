@@ -1,12 +1,13 @@
-import ScalingSpellCard from "@/app/components/ScalingSpellCard";
+import ScalingSpellCard from "@/components/ScalingSpellCard";
 import { ConfigProvider } from "antd";
 import theme from "../../../theme/themeConfig";
-import SpellBook from "@/app/components/SpellBook";
-import PrintSpellBook from "@/app/components/PrintSpellBook";
+import SpellBook from "@/components/SpellBook";
 
 export default async function Page() {
   const columns = 5;
   const spells = [
+    "command",
+    "comprehend-languages",
     "guidance",
     "sacred-flame",
     "light",

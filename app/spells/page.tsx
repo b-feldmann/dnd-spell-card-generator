@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ConfigProvider } from 'antd';
 import Link from 'next/link'
 
-import theme from '../../theme/themeConfig';
+import theme from '@/theme/themeConfig';
 
 async function getSpells() {
     const api = 'https://www.dnd5eapi.co/api/'

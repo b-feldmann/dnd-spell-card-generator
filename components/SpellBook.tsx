@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-import SpellCard from "./SpellCard";
+import SpellCard from "./SpellCard/SpellCard";
 import ScalingSpellCard from "./ScalingSpellCard";
 
 export default function SpellBook({
@@ -13,9 +13,9 @@ export default function SpellBook({
   print: boolean;
 }) {
   const gridClass = classNames({
-    "print-grid": true,
     grid: true,
-    "gap-1": true,
+    "gap-x-2": true,
+    "gap-y-3": true,
     "grid-cols-2": columns === 2,
     "grid-cols-3": columns === 3,
     "grid-cols-4": columns === 4,
@@ -31,7 +31,7 @@ export default function SpellBook({
     }
 
     return (
-      <ScalingSpellCard divider={columns} spellName={name} />
+      <ScalingSpellCard spellName={name} />
     );
   };
 

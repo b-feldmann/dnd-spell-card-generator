@@ -1,6 +1,5 @@
-import ScalingSpellCard from "@/components/ScalingSpellCard";
 import { ConfigProvider } from "antd";
-import theme from "../../../theme/themeConfig";
+import theme from "@/theme/themeConfig";
 import SpellBook from "@/components/SpellBook";
 
 export default async function Page() {

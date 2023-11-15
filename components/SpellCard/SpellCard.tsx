@@ -89,7 +89,6 @@ export default async function SpellCard({
         }
         return line
       })
-    console.log(splicedContent)
 
     return <span>{splicedContent}</span>
   }

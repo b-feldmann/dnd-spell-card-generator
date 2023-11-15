@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import AutoSizer from "react-virtualized-auto-sizer";
-import { CARD_HEIGHT, CARD_WIDTH } from './SpellCard/SpellCard';
+import { CARD_HEIGHT, CARD_WIDTH } from './SpellCard/SpellRender';
 
 export default function ScaleToParent({
   children
@@ -16,8 +16,6 @@ export default function ScaleToParent({
   return (
     <AutoSizer
       ref={ref}
-      disableHeight
-      className="min-h-0"
       style={{
         width: "auto",
         height: "auto",
@@ -28,12 +26,15 @@ export default function ScaleToParent({
           ref.current.props.style.height = `${CARD_HEIGHT * resizeFactor(width)}px`
         }
       }}
+      onChange={() => {console.log("foo")}}
     >
       {({ width }) => {
-        console.log(width);
-
         return (
-          <div
+          <div style={{
+            width: `${width}px`,
+            height: `${CARD_HEIGHT * resizeFactor(width)}px`,
+          }}
+        ><div
             style={{
               transform: `scale(${resizeFactor(width)})`,
               transformOrigin: "top left",
@@ -42,7 +43,7 @@ export default function ScaleToParent({
             }}
           >
             {children}
-          </div>
+          </div></div>
         );
       }}
     </AutoSizer>

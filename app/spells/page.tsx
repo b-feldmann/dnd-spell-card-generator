@@ -7,7 +7,7 @@ import SpellList from '@/components/SpellList/SpellList';
 export default async function Page() {
     return (
         <ConfigProvider theme={theme}>
-            <SpellList dndClass='cleric'/>
+            <SpellList dndClass='cleric' skipSpells={[]}/>
         </ConfigProvider>
     )
 }

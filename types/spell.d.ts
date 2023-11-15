@@ -27,3 +27,5 @@ export default interface Spell {
         name: string
     }[]
 }
+
+export interface SpellListEntry { index: string; name: string; url: string }

@@ -17,6 +17,8 @@ const saveAsPdf = async (url: string) => {
 
   const page = await browser.newPage();
 
+  console.log(url)
+
   await page.goto(url, {
     waitUntil: 'networkidle0'
   });
@@ -36,10 +38,17 @@ const saveAsPdf = async (url: string) => {
 export async function GET(request: Request) {
   const url = new URL(request.url)
   const params = url.searchParams;
-  console.log(params)
-  console.log(params.get('foo'))
 
-  const pdf = await saveAsPdf("http://localhost:3000/spells/print");
+  const selectedSearch = params.getAll("s");
+  const spells = selectedSearch
+    ? Array.isArray(selectedSearch)
+      ? selectedSearch
+      : [selectedSearch]
+    : [];
+
+  console.log(params)
+
+  const pdf = await saveAsPdf("http://localhost:3000/spells/print?" + params.toString());
 
   return new Response(pdf);
 }

@@ -1,26 +1,20 @@
-import ScalingSpellCard from "@/components/ScalingSpellCard";
 import { ConfigProvider } from "antd";
 import theme from "../../../theme/themeConfig";
 import SpellBook from "@/components/SpellBook";
-import PrintSpellBook from "@/app/components/PrintSpellBook";
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
   const columns = 3;
-  const spells = [
-    "guidance",
-    "sacred-flame",
-    "light",
-    "thaumaturgy",
-    "bless",
-    "burning-hands",
-    "create-or-destroy-water",
-    "faerie-fire",
-    "guiding-bolt",
-    "flaming-sphere",
-    "hold-person",
-    "scorching-ray",
-    "spiritual-weapon"
-  ];
+
+  const selectedSearch = searchParams?.s;
+  const spells = selectedSearch
+    ? Array.isArray(selectedSearch)
+      ? selectedSearch
+      : [selectedSearch]
+    : [];
 
   //<SpellBook spellNames={spells} columns={columns} />
   return (

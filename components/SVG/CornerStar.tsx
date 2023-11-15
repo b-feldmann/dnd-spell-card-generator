@@ -9,7 +9,7 @@ export default function CornerStarIcon({
 }) {
   return (
     <svg
-      stroke-width="0"
+      strokeWidth="0"
       viewBox="0 0 512 512"
       className={className}
       style={style}

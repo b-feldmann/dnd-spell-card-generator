@@ -1,7 +1,8 @@
 import classNames from "classnames";
 
-import SpellCard from "./SpellCard/SpellCard";
 import ScalingSpellCard from "./ScalingSpellCard";
+import SpellCard from "./SpellCard/SpellCard";
+import RemoveSpellButton from "./RemoveSpellButton/RemoveSpellButton";
 
 export default function SpellBook({
   spellNames,
@@ -31,7 +32,10 @@ export default function SpellBook({
     }
 
     return (
-      <ScalingSpellCard spellName={name} />
+      <div className="relative">
+        <RemoveSpellButton spell={name} />
+        <ScalingSpellCard spellName={name} />
+      </div>
     );
   };
 

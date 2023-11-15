@@ -17,8 +17,6 @@ const saveAsPdf = async (url: string) => {
 
   const page = await browser.newPage();
 
-  console.log(url)
-
   await page.goto(url, {
     waitUntil: 'networkidle0'
   });
@@ -45,8 +43,6 @@ export async function GET(request: Request) {
       ? selectedSearch
       : [selectedSearch]
     : [];
-
-  console.log(params)
 
   const pdf = await saveAsPdf("http://localhost:3000/spells/print?" + params.toString());
 

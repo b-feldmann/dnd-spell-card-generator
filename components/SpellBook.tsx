@@ -3,15 +3,16 @@ import classNames from "classnames";
 import ScalingSpellCard from "./ScalingSpellCard";
 import SpellCard from "./SpellCard/SpellCard";
 import RemoveSpellButton from "./RemoveSpellButton/RemoveSpellButton";
+import { SpellAndClass } from "@/types/spell";
 
 export default function SpellBook({
-  spellNames,
+  spellsAndClasses,
   columns,
   print,
 }: {
-  spellNames: string[];
+  spellsAndClasses: SpellAndClass[];
   columns: number;
-  print: boolean;
+  print?: boolean;
 }) {
   const gridClass = classNames({
     grid: true,
@@ -26,22 +27,20 @@ export default function SpellBook({
     "grid-cols-8": columns === 8,
   });
 
-  const generateCard = (name: string) => {
+  const generateCard = (spellAndClass: SpellAndClass) => {
+    const { spell: name, dndClass } = spellAndClass
+
     if (print) {
-      return <SpellCard spellName={name} />;
+      return <SpellCard spellName={name} dndClass={dndClass} />;
     }
 
     return (
       <div className="relative">
-        <RemoveSpellButton spell={name} />
-        <ScalingSpellCard spellName={name} />
+        <RemoveSpellButton spell={name} dndClass={dndClass} />
+        <ScalingSpellCard spellName={name} dndClass={dndClass} />
       </div>
     );
   };
 
-  return <div className={gridClass}>{spellNames.map(generateCard)}</div>;
+  return <div className={gridClass}>{spellsAndClasses.map(generateCard)}</div>;
 }
-
-SpellBook.defaultProps = {
-  print: false,
-};

@@ -1,6 +1,8 @@
+import SpellBook from "@/components/SpellBook";
+import { toSpellsAndClasses } from "@/lib/searchParamsConverter";
+import { SpellAndClass } from "@/types/spell";
 import { ConfigProvider } from "antd";
 import theme from "../../../theme/themeConfig";
-import SpellBook from "@/components/SpellBook";
 
 export default async function Page({
   searchParams,
@@ -9,17 +11,12 @@ export default async function Page({
 }) {
   const columns = 3;
 
-  const selectedSearch = searchParams?.s;
-  const spells = selectedSearch
-    ? Array.isArray(selectedSearch)
-      ? selectedSearch
-      : [selectedSearch]
-    : [];
+  const spellsAndClasses: SpellAndClass[] = toSpellsAndClasses(searchParams);
 
   //<SpellBook spellNames={spells} columns={columns} />
   return (
     <ConfigProvider theme={theme}>
-      <SpellBook spellNames={spells} columns={columns} print />
+      <SpellBook spellsAndClasses={spellsAndClasses} columns={columns} print />
     </ConfigProvider>
   );
 }

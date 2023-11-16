@@ -3,8 +3,9 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "antd";
 import { CloseOutlined, DeleteOutlined, DeleteTwoTone } from "@ant-design/icons";
+import { SpellCastingClass } from "@/types/classes";
 
-export default function RemoveSpellButton({ spell }: { spell: string }) {
+export default function RemoveSpellButton({ spell, dndClass }: { spell: string, dndClass: SpellCastingClass }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -14,7 +15,7 @@ export default function RemoveSpellButton({ spell }: { spell: string }) {
   const removeSpell = () => {
     const current = new URLSearchParams(searchParams);
 
-    const value = spellLink;
+    const value = `${spellLink}/${dndClass}`;
     current.delete("s", value);
 
     const search = current.toString();

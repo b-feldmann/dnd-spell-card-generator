@@ -1,6 +1,7 @@
 import { SpellListEntry } from "@/types/spell";
 import SpellListRender from "./SpellListRender";
 import { SpellCastingClass } from "@/types/classes";
+import ChooseClass from "../ChooseClass";
 
 async function getSpells(dndClass: SpellCastingClass) {
   const res = await fetch(
@@ -31,14 +32,14 @@ export default async function SpellList({
 
   const spellFilter = (spell: SpellListEntry) => {
     const parsedSpellName = spell.name.toLowerCase().split(/ |\//).join("-");
-    return !skipSpells.includes(parsedSpellName);
+    return !skipSpells.includes(`${parsedSpellName}/${dndClass}`);
   };
 
   const filteredSpells = spells.filter(spellFilter);
 
   return (
     <div>
-      <h2>List of {capitalizeFirstLetter(dndClass)} spells</h2>
+      <h2>List of <ChooseClass /> spells</h2>
       <SpellListRender spells={filteredSpells} dndClass={dndClass} />
     </div>
   );

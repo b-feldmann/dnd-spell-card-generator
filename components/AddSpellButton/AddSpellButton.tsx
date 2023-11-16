@@ -2,18 +2,17 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "antd";
+import { SpellCastingClass } from "@/types/classes";
 
-export default function AddSpellButton({ spell, content }: { spell: string, content?: string }) {
+export default function AddSpellButton({ spellName, link, dndClass }: { spellName: string, link: string, dndClass: SpellCastingClass }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const spellLink = spell.toLowerCase().split(/ |\//).join("-");
-
   const addSpell = () => {
     const current = new URLSearchParams(searchParams);
 
-    const value = spellLink;
+    const value = `${link}/${dndClass}`;
     current.append("s", value);
 
     const search = current.toString();
@@ -24,7 +23,7 @@ export default function AddSpellButton({ spell, content }: { spell: string, cont
 
   return (
     <div>
-      <Button shape="round" type="default" onClick={addSpell}>{content ?? spell}</Button>
+      <Button shape="round" type="default" onClick={addSpell}>{spellName}</Button>
     </div>
   );
 }

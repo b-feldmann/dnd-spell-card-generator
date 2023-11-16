@@ -4,21 +4,24 @@ import Spell, { SpellAreaOfEffect } from "@/types/spell";
 
 import CornerStarIcon from "@/components/SVG/CornerStar";
 import MetaInformation from "./MetaInformation";
+import { SpellCastingClass } from "@/types/classes";
 
 const mirza = Mirza({
   subsets: ["latin"],
   weight: "600",
 });
-
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 export const CARD_WIDTH = 250;
 export const CARD_HEIGHT = 356;
 
 export default async function SpellRender({
   spell,
-  color = "red",
+  dndClass = "cleric",
 }: {
   spell: Spell;
-  color?: string;
+  dndClass?: SpellCastingClass;
 }) {
   const ordinalLevel = (level: number) => {
     if (level === 0) return "Cantrip";
@@ -26,6 +29,28 @@ export default async function SpellRender({
     if (level === 2) return "2nd-level";
     if (level === 3) return "3rd-level";
     return `${level}th-level`;
+  };
+
+  const getColor = (dndClass: SpellCastingClass) => {
+    switch (dndClass) {
+      case "bard":
+        return "#AB6DAC";
+      case "cleric":
+        return "#91A1B2";
+      case "druid":
+        return "#7A853B";
+      case "paladin":
+        return "#B59E54";
+      case "ranger":
+        return "#507F60";
+      case "sorcerer":
+        return "#992E2E";
+      case "warlock":
+        return "#7B469B";
+      case "wizard":
+        return "#2A50A1";
+    }
+    return "black";
   };
 
   const getAreaOfEffectDescription = (areaOfEffect?: SpellAreaOfEffect) => {
@@ -60,22 +85,27 @@ export default async function SpellRender({
     level === 0 ? `${school} ${levelAsText}` : `${levelAsText} ${school}`;
 
   const parseMarkdown = (content: string) => {
-    const regex = /(\*\*\*.*\*\*\*)/g
-    const splicedContent = content.split(regex)
-      .filter(line => line.length > 0)
-      .map(line => {
-        if(line.match(regex)) {
-          return <span className="font-bold">{line.replaceAll('***', '')}</span>
+    const regex = /(\*\*\*.*\*\*\*)/g;
+    const splicedContent = content
+      .split(regex)
+      .filter((line) => line.length > 0)
+      .map((line) => {
+        if (line.match(regex)) {
+          return (
+            <span className="font-bold">{line.replaceAll("***", "")}</span>
+          );
         }
-        return line
-      })
+        return line;
+      });
 
-    return <span>{splicedContent}</span>
-  }
+    return <span>{splicedContent}</span>;
+  };
+
+  const color = getColor(dndClass);
 
   return (
     <div
-      className="antialiased relative box-border font-sans w-[250px] h-[358px] min-h-0 overflow-hidden border border-solid"
+      className="antialiased relative box-border font-sans w-[250px] h-[358px] min-h-0 overflow-hidden border border-2 border-solid rounded"
       style={{ borderColor: color }}
     >
       <CornerStarIcon
@@ -130,6 +160,9 @@ export default async function SpellRender({
       </div>
       <div className="absolute bottom-0.5 right-2 text-xs">
         <span className={mirza.className}>{spellType}</span>
+      </div>
+      <div className="absolute bottom-0.5 left-2 text-xs">
+        <span className={mirza.className}>{capitalizeFirstLetter(dndClass)}</span>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import Spell from "@/types/spell";
 import SpellRender from "./SpellRender";
 import { Suspense } from "react";
 import SpellCard from "./SpellCard";
+import { SpellCastingClass } from "@/types/classes";
 
 const EmptySpell: Spell = {
   name: "Loading",
@@ -13,14 +14,14 @@ const EmptySpell: Spell = {
 
 export default async function SuspendingSpellCard({
   spellName,
-  color = "red",
+  dndClass,
 }: {
   spellName: string;
-  color?: string;
+  dndClass: SpellCastingClass;
 }) {
   return (
-    <Suspense fallback={<SpellRender spell={EmptySpell} color={color} />}>
-      <SpellCard spellName={spellName} color={color} />
+    <Suspense fallback={<SpellRender spell={EmptySpell} dndClass={dndClass} />}>
+      <SpellCard spellName={spellName} dndClass={dndClass} />
     </Suspense>
   );
 }

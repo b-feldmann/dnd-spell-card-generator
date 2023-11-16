@@ -1,5 +1,6 @@
 import Spell from "@/types/spell";
 import SpellRender from "./SpellRender";
+import { SpellCastingClass } from "@/types/classes";
 
 const EmptySpell: Spell = {
   name: "Loading",
@@ -24,12 +25,12 @@ async function getSpell(spellName: string) {
 
 export default async function SpellCard({
   spellName,
-  color = "red",
+  dndClass
 }: {
   spellName: string;
-  color?: string;
+  dndClass: SpellCastingClass
 }) {
   const spell = await getSpell(spellName);
 
-  return <SpellRender spell={spell} color={color} />;
+  return <SpellRender spell={spell} dndClass={dndClass} />;
 }

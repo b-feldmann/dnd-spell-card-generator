@@ -20,22 +20,20 @@ export default function ChooseClass() {
   };
 
   return (
-    <div>
-      <Select
-        defaultValue="cleric"
-        style={{ width: 120 }}
-        onChange={chooseClass}
-        options={[
-          { value: "cleric", label: "Cleric" },
-          { value: "bard", label: "Bard" },
-          { value: "druid", label: "Druid" },
-          { value: "paladin", label: "Paladin" },
-          { value: "ranger", label: "Ranger" },
-          { value: "sorcerer", label: "Sorcerer" },
-          { value: "warlock", label: "Warlock" },
-          { value: "wizard", label: "Wizard" },
-        ]}
-      />
-    </div>
+    <Select
+      defaultValue="cleric"
+      style={{ width: 110 }}
+      onChange={chooseClass}
+      options={[
+        { value: "cleric", label: "Cleric" },
+        { value: "bard", label: "Bard" },
+        { value: "druid", label: "Druid" },
+        { value: "paladin", label: "Paladin" },
+        { value: "ranger", label: "Ranger" },
+        { value: "sorcerer", label: "Sorcerer" },
+        { value: "warlock", label: "Warlock" },
+        { value: "wizard", label: "Wizard" },
+      ]}
+    />
   );
 }

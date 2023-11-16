@@ -1,3 +1,5 @@
+import { SpellCastingClass } from "./classes"
+
 export interface SpellAreaOfEffect {
     size?: number
     type?: string
@@ -29,3 +31,5 @@ export default interface Spell {
 }
 
 export interface SpellListEntry { index: string; name: string; url: string }
+
+export interface SpellAndClass { spell: string, dndClass: SpellCastingClass }

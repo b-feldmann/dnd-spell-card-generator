@@ -1,9 +1,9 @@
 "use client"
 
+import { SpellCastingClass } from "@/types/classes";
 import { SpellListEntry } from "@/types/spell";
 import { List } from "antd";
 import AddSpellButton from "../AddSpellButton/AddSpellButton";
-import { SpellCastingClass } from "@/types/classes";
 
 export default function SpellListRender({
   spells,
@@ -19,7 +19,7 @@ export default function SpellListRender({
       dataSource={spells}
       renderItem={(item) => (
         <List.Item className="!p-0">
-            <AddSpellButton spell={item.url.substring(item.url.lastIndexOf('/') + 1)} content={item.name}/>
+            <AddSpellButton link={item.url.substring(item.url.lastIndexOf('/') + 1)} spellName={item.name} dndClass={dndClass}/>
         </List.Item>
       )}
     />

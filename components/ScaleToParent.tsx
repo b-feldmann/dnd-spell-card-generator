@@ -26,7 +26,6 @@ export default function ScaleToParent({
           ref.current.props.style.height = `${CARD_HEIGHT * resizeFactor(width)}px`
         }
       }}
-      onChange={() => {console.log("foo")}}
     >
       {({ width }) => {
         return (

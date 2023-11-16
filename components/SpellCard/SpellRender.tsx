@@ -5,14 +5,17 @@ import Spell, { SpellAreaOfEffect } from "@/types/spell";
 import CornerStarIcon from "@/components/SVG/CornerStar";
 import MetaInformation from "./MetaInformation";
 import { SpellCastingClass } from "@/types/classes";
+import CardDivider from "../SVG/CardDivider";
 
 const mirza = Mirza({
   subsets: ["latin"],
   weight: "600",
 });
+
 function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
 export const CARD_WIDTH = 250;
 export const CARD_HEIGHT = 356;
 
@@ -125,20 +128,31 @@ export default async function SpellRender({
         style={{ fill: color }}
       />
       <div className="p-2">
-        <p className="mx-4 mt-1 mb-2 text-lg text-center font-bold border-0 border-b border-solid">
+        <p
+          className="mx-4 mt-1 mb-2 text-lg text-center font-bold border-0 border-b-2 border-solid"
+          style={{ borderColor: color }}
+        >
           <span className={mirza.className}>{name}</span>
         </p>
-        <div className="text-[10px]">
+        <CardDivider style={{ fill: color }} />
+        <div className="text-[11px]">
           <MetaInformation
+            color={color}
             type="casting-time"
             content={`${castingTime} ${ritualDescription}`}
           />
           <MetaInformation
+            color={color}
             type="range"
             content={`${range} ${areaOfEffectDescription}`}
           />
-          <MetaInformation type="components" content={components} />
           <MetaInformation
+            color={color}
+            type="components"
+            content={components}
+          />
+          <MetaInformation
+            color={color}
             type="duration"
             content={`${duration} ${concentrationDescription}`}
           />
@@ -162,7 +176,9 @@ export default async function SpellRender({
         <span className={mirza.className}>{spellType}</span>
       </div>
       <div className="absolute bottom-0.5 left-2 text-xs">
-        <span className={mirza.className}>{capitalizeFirstLetter(dndClass)}</span>
+        <span className={mirza.className}>
+          {capitalizeFirstLetter(dndClass)}
+        </span>
       </div>
     </div>
   );

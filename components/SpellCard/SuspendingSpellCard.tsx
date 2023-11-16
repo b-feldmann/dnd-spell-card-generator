@@ -7,6 +7,10 @@ import { SpellCastingClass } from "@/types/classes";
 const EmptySpell: Spell = {
   name: "Loading",
   level: 0,
+  casting_time: "1 action",
+  range: "Touch",
+  duration: "Instantaneous",
+  components: ["M", "S", "M"],
   school: {
     name: "Divination",
   },

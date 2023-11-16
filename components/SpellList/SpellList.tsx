@@ -14,6 +14,10 @@ async function getSpells(dndClass: SpellCastingClass) {
   return res.json();
 }
 
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export default async function SpellList({
   skipSpells,
   dndClass,
@@ -34,7 +38,7 @@ export default async function SpellList({
 
   return (
     <div>
-      <h1>List of all Spells</h1>
+      <h2>List of {capitalizeFirstLetter(dndClass)} spells</h2>
       <SpellListRender spells={filteredSpells} dndClass={dndClass} />
     </div>
   );

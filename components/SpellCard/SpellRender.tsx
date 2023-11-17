@@ -1,6 +1,6 @@
 import { Mirza } from "next/font/google";
 
-import Spell, { SpellAreaOfEffect } from "@/types/spell";
+import Spell, { SpellAreaOfEffect, Damage } from "@/types/spell";
 
 import CornerStarIcon from "@/components/SVG/CornerStar";
 import MetaInformation from "./MetaInformation";
@@ -55,6 +55,8 @@ export default async function SpellRender({
     ritual,
     components,
     area_of_effect: areaOfEffect,
+    attack_type: attackType,
+    damage,
   }: Spell = spell;
 
   const levelAsText = ordinalLevel(level);
@@ -62,6 +64,10 @@ export default async function SpellRender({
 
   const concentrationDescription = concentration ? "(C)" : "";
   const ritualDescription = ritual ? "or Ritual" : "";
+
+  const parseDamage = (damage?: Damage) => {
+    return damage?.damage_type?.name;
+  };
 
   const spellType =
     level === 0 ? `${school} ${levelAsText}` : `${levelAsText} ${school}`;
@@ -84,6 +90,8 @@ export default async function SpellRender({
   };
 
   const color = classToColor(dndClass);
+
+  console.log(damage);
 
   return (
     <div
@@ -108,7 +116,7 @@ export default async function SpellRender({
       />
       <div className="p-2">
         <p
-          className="mx-4 mt-1 mb-2 text-lg text-center font-bold border-0 border-b-2 border-solid"
+          className="mx-1 mt-1 mb-2 text-lg text-center font-bold border-0 border-b-2 border-solid"
           style={{ borderColor: color }}
         >
           <span className={mirza.className}>{name}</span>
@@ -135,7 +143,19 @@ export default async function SpellRender({
             type="duration"
             content={`${duration} ${concentrationDescription}`}
           />
+          {damage && (
+            <MetaInformation
+              color={color}
+              type="damage"
+              content={parseDamage(damage)}
+            />
+          )}
         </div>
+        <p
+          className="mx-1 mt-1 mb-2 text-lg text-center font-bold border-0 border-b-2 border-solid"
+          style={{ borderColor: color }}
+        >
+        </p>
 
         <div className="text-[10px] leading-tight">
           {desc?.map((line) => (

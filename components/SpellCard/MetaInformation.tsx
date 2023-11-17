@@ -3,6 +3,7 @@ import CastingTimeIcon from "../SVG/CastingTime";
 import ComponentsIcon from "../SVG/Components";
 import DurationIcon from "../SVG/Duration";
 import RangeIcon from "../SVG/Range";
+import DamageIcon from "../SVG/Damage";
 
 const mirzaLight = Mirza({
   subsets: ["latin"],
@@ -14,7 +15,7 @@ export default function MetaInformation({
   content,
   color
 }: {
-  type: "duration" | "range" | "casting-time" | "components";
+  type: "duration" | "range" | "casting-time" | "components" | "damage";
   content?: string | string[];
   color?: string
 }) {
@@ -25,6 +26,7 @@ export default function MetaInformation({
         { type === "range" && <RangeIcon style={{ fill: color }}/>}
         { type === "components" && <ComponentsIcon style={{ fill: color }}/>}
         { type === "casting-time" && <CastingTimeIcon style={{ fill: color }}/>}
+        { type === "damage" && <DamageIcon style={{ fill: color }}/>}
       </p>
       <p className="m-0"><span className={mirzaLight.className}>{content}</span></p>
     </div>

@@ -5,6 +5,11 @@ export interface SpellAreaOfEffect {
     type?: string
 }
 
+export interface Damage {
+    damage_type: { index: string, name: string, url: string }; 
+    damage_at_character_level: {};
+}
+
 export default interface Spell {
     name: String,
     desc?: string[],
@@ -27,7 +32,9 @@ export default interface Spell {
     }[],
     subclasses?: {
         name: string
-    }[]
+    }[],
+    attack_type?: string,
+    damage?: Damage
 }
 
 export interface SpellListEntry { index: string; name: string; url: string }

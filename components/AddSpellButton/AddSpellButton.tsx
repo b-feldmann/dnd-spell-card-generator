@@ -3,6 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "antd";
 import { SpellCastingClass } from "@/types/classes";
+import classToColor from "@/lib/classToColor";
 
 export default function AddSpellButton({ spellName, link, dndClass }: { spellName: string, link: string, dndClass: SpellCastingClass }) {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function AddSpellButton({ spellName, link, dndClass }: { spellNam
 
   return (
     <div>
-      <Button shape="round" type="default" onClick={addSpell}>{spellName}</Button>
+      <Button shape="round" type="default" style={{"color": classToColor(dndClass)}} onClick={addSpell}>{spellName}</Button>
     </div>
   );
 }

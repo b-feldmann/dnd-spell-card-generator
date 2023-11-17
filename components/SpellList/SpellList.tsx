@@ -32,15 +32,20 @@ export default async function SpellList({
 
   const spellFilter = (spell: SpellListEntry) => {
     const parsedSpellName = spell.name.toLowerCase().split(/ |\//).join("-");
+    console.log(skipSpells + " : " + `${parsedSpellName}/${dndClass}`)
     return !skipSpells.includes(`${parsedSpellName}/${dndClass}`);
   };
 
   const filteredSpells = spells.filter(spellFilter);
 
   return (
-    <div>
-      <h2>List of <ChooseClass /> spells</h2>
-      <SpellListRender spells={filteredSpells} dndClass={dndClass} />
+    <div className="max-h-screen">
+      <h2>
+        List of <ChooseClass /> spells
+      </h2>
+      <div className="scroll-smooth overflow-auto" style={{ height: "calc(100vh - 90px)" }}>
+        <SpellListRender spells={filteredSpells} dndClass={dndClass} />
+      </div>
     </div>
   );
 }

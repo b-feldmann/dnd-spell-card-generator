@@ -6,6 +6,7 @@ import CornerStarIcon from "@/components/SVG/CornerStar";
 import MetaInformation from "./MetaInformation";
 import { SpellCastingClass } from "@/types/classes";
 import CardDivider from "../SVG/CardDivider";
+import classToColor from "@/lib/classToColor";
 
 const mirza = Mirza({
   subsets: ["latin"],
@@ -32,28 +33,6 @@ export default async function SpellRender({
     if (level === 2) return "2nd-level";
     if (level === 3) return "3rd-level";
     return `${level}th-level`;
-  };
-
-  const getColor = (dndClass: SpellCastingClass) => {
-    switch (dndClass) {
-      case "bard":
-        return "#AB6DAC";
-      case "cleric":
-        return "#91A1B2";
-      case "druid":
-        return "#7A853B";
-      case "paladin":
-        return "#B59E54";
-      case "ranger":
-        return "#507F60";
-      case "sorcerer":
-        return "#992E2E";
-      case "warlock":
-        return "#7B469B";
-      case "wizard":
-        return "#2A50A1";
-    }
-    return "black";
   };
 
   const getAreaOfEffectDescription = (areaOfEffect?: SpellAreaOfEffect) => {
@@ -104,7 +83,7 @@ export default async function SpellRender({
     return <span>{splicedContent}</span>;
   };
 
-  const color = getColor(dndClass);
+  const color = classToColor(dndClass);
 
   return (
     <div

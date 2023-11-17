@@ -19,16 +19,15 @@ export default async function Home({
     ? selectedClass[0]
     : selectedClass;
 
-  const spellNames = spellsAndClasses.map(spellAndClass => spellAndClass.spell)
   const printParams = spellsAndClasses.map(spellAndClass => `${spellAndClass.spell}/${spellAndClass.dndClass}`)
 
   return (
     <ConfigProvider theme={theme}>
       <div className="grid grid-cols-8">
-        <div className="col-span-1">
-          <SpellList skipSpells={spellNames} dndClass={dndClass} />
+        <div className="col-span-2">
+          <SpellList skipSpells={printParams} dndClass={dndClass} />
         </div>
-        <div className="col-span-7">
+        <div className="col-span-6">
           {spellsAndClasses && <SpellBook spellsAndClasses={spellsAndClasses} columns={6} />}
         </div>
       </div>

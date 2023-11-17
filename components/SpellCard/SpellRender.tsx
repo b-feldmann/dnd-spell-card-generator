@@ -113,7 +113,7 @@ export default async function SpellRender({
         >
           <span className={mirza.className}>{name}</span>
         </p>
-        <CardDivider style={{ fill: color }} />
+        {/* <CardDivider style={{ fill: color }} /> */}
         <div className="text-[11px]">
           <MetaInformation
             color={color}

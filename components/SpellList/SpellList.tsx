@@ -35,7 +35,9 @@ export default async function SpellList({
     return !skipSpells.includes(`${parsedSpellName}/${dndClass}`);
   };
 
-  const filteredSpells = spells.filter(spellFilter);
+  const filteredSpells = spells
+    .filter(spellFilter)
+    .sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'variant' }));
 
   return (
     <div className="max-h-screen">

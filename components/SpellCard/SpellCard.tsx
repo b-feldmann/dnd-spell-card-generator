@@ -13,7 +13,7 @@ const EmptySpell: Spell = {
 async function getSpell(spellName: string) {
   if (!spellName) return EmptySpell;
 
-  const res = await fetch(`https://www.dnd5eapi.co/api/spells/${spellName}`);
+  const res = await fetch(`https://www.dnd5eapi.co/api/spells/${spellName}`, { cache: 'force-cache' });
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary

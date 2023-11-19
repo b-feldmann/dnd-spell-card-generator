@@ -7,7 +7,7 @@ export interface SpellAreaOfEffect {
 
 export interface Damage {
     damage_type: { index: string, name: string, url: string }; 
-    damage_at_character_level: {};
+    damage_at_slot_level: { [key: string]: string; };
 }
 
 export default interface Spell {

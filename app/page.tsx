@@ -23,12 +23,12 @@ export default async function Home({
 
   return (
     <ConfigProvider theme={theme}>
-      <div className="grid grid-cols-11">
+      <div className="grid grid-cols-11 gap-2">
         <div className="col-span-2">
           <SpellList skipSpells={printParams} dndClass={dndClass} />
         </div>
         <div className="col-span-9">
-          {spellsAndClasses && <SpellBook spellsAndClasses={spellsAndClasses} columns={4} />}
+          {spellsAndClasses && <SpellBook spellsAndClasses={spellsAndClasses} columns={5} />}
         </div>
       </div>
       <PrintButton searchParams={`?s=${printParams.join("&s=")}`} />

@@ -7,6 +7,9 @@ import MetaInformation from "./MetaInformation";
 import { SpellCastingClass } from "@/types/classes";
 import CardDivider from "../SVG/CardDivider";
 import classToColor from "@/lib/classToColor";
+import ResizableText from "../ResizingText";
+import TextResize from "../TextResize/TextResize";
+import classNames from "classnames";
 
 const mirza = Mirza({
   subsets: ["latin"],
@@ -69,6 +72,12 @@ export default async function SpellRender({
     return damage?.damage_type?.name;
   };
 
+  const parseDamageAtLevel = (damage?: Damage) => {
+    if(!damage?.damage_at_slot_level) return null;
+
+    return Object.keys(damage.damage_at_slot_level).map(key => `${key}: ${damage.damage_at_slot_level[key]}`).join(', ')
+  };
+
   const spellType =
     level === 0 ? `${school} ${levelAsText}` : `${levelAsText} ${school}`;
 
@@ -91,7 +100,12 @@ export default async function SpellRender({
 
   const color = classToColor(dndClass);
 
-  console.log(damage);
+  const textResizeClass = classNames({
+     "!h-[210px]": !damage,
+     "!max-h-[210px]": !damage,
+     "!h-[195px]": !!damage,
+     "!max-h-[195px]": !!damage
+  })
 
   return (
     <div
@@ -114,7 +128,7 @@ export default async function SpellRender({
         className="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2"
         style={{ fill: color }}
       />
-      <div className="p-2">
+      <div className="p-2 h-full">
         <p
           className="mx-1 mt-1 mb-2 text-lg text-center font-bold border-0 border-b-2 border-solid"
           style={{ borderColor: color }}
@@ -150,6 +164,13 @@ export default async function SpellRender({
               content={parseDamage(damage)}
             />
           )}
+          {/* {damage && (
+            <MetaInformation
+              color={color}
+              type="damage"
+              content={parseDamageAtLevel(damage)}
+            />
+          )} */}
         </div>
         <p
           className="mx-1 mt-1 mb-2 text-lg text-center font-bold border-0 border-b-2 border-solid"
@@ -157,11 +178,12 @@ export default async function SpellRender({
         >
         </p>
 
-        <div className="text-[10px] leading-tight">
-          {desc?.map((line) => (
-            <p className="my-1">{parseMarkdown(line)}</p>
-          ))}
-          {atHigherLevel && atHigherLevel.length > 0 && (
+        <div className={textResizeClass}>
+          <TextResize defaultFontSize={10} minFontSize={5} maxFontSize={13}>
+            {desc?.map((line) => (
+              <p className="my-1">{parseMarkdown(line)}</p>
+            ))}
+            {atHigherLevel && atHigherLevel.length > 0 && (
             <p className="mt-1 mb-0 text-xs">
               <span className={mirza.className}>At Higher Levels:</span>
             </p>
@@ -169,6 +191,7 @@ export default async function SpellRender({
           {atHigherLevel?.map((line) => (
             <p className="my-1">{parseMarkdown(line)}</p>
           ))}
+          </TextResize>
         </div>
       </div>
       <div className="absolute bottom-0.5 right-2 text-xs">

@@ -58,7 +58,6 @@ export default async function SpellRender({
     ritual,
     components,
     area_of_effect: areaOfEffect,
-    attack_type: attackType,
     damage,
   }: Spell = spell;
 
@@ -198,17 +197,17 @@ export default async function SpellRender({
         <div className={textResizeClass}>
           <TextResize defaultFontSize={10} minFontSize={5} maxFontSize={10}>
             {desc?.map((line) => (
-              <p key={genKey(line)} className="my-1">
+              <p key={genKey(line)} className="my-0.5">
                 {parseMarkdown(line)}
               </p>
             ))}
             {atHigherLevel && atHigherLevel.length > 0 && (
-              <p className="-mb-1 mt-1 text-xs">
+              <p className="-mb-0.5 mt-1 text-xs">
                 <span className={mirza.className}>At Higher Levels:</span>
               </p>
             )}
             {atHigherLevel?.map((line) => (
-              <p key={genKey(line)} className="my-1">
+              <p key={genKey(line)} className="my-0.5">
                 {parseMarkdown(line)}
               </p>
             ))}

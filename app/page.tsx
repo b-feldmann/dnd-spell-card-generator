@@ -28,7 +28,7 @@ export default async function Home({
           <SpellList skipSpells={printParams} dndClass={dndClass} />
         </div>
         <div className="col-span-9">
-          {spellsAndClasses && <SpellBook spellsAndClasses={spellsAndClasses} columns={5} />}
+          {spellsAndClasses && <SpellBook spellsAndClasses={spellsAndClasses} columns={3} />}
         </div>
       </div>
       <PrintButton searchParams={`?s=${printParams.join("&s=")}`} />

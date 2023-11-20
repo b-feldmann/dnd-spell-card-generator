@@ -16,6 +16,13 @@
   }
 }
 
+/* Works on Firefox */
+* {
+  scrollbar-width: 20px;
+  scrollbar-color: #a8bbbf transparent;
+}
+
+/* Works on Chrome, Edge, and Safari */
 ::-webkit-scrollbar {
   width: 20px;
 }
@@ -45,10 +52,5 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: rgb(var(--background-start-rgb));
 }

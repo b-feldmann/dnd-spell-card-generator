@@ -2,8 +2,13 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Select } from "antd";
+import { SpellCastingClass } from "@/types/classes";
 
-export default function ChooseClass() {
+export default function ChooseClass({
+  initialClass,
+}: {
+  initialClass: SpellCastingClass;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -21,9 +26,10 @@ export default function ChooseClass() {
 
   return (
     <Select
-      defaultValue="cleric"
+      id="choose-class-select"
       style={{ width: 110 }}
       onChange={chooseClass}
+      defaultValue={initialClass}
       options={[
         { value: "cleric", label: "Cleric" },
         { value: "bard", label: "Bard" },

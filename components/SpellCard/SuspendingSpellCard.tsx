@@ -25,7 +25,7 @@ export default async function SuspendingSpellCard({
 }) {
   return (
     // <Suspense fallback={<SpellRender spell={EmptySpell} dndClass={dndClass} />}>
-      <SpellCard spellName={spellName} dndClass={dndClass} />
+    <SpellCard spellName={spellName} dndClass={dndClass} />
     // </Suspense>
   );
 }

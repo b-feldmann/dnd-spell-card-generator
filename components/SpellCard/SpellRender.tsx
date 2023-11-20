@@ -5,11 +5,11 @@ import Spell, { SpellAreaOfEffect, Damage } from "@/types/spell";
 import CornerStarIcon from "@/components/SVG/CornerStar";
 import MetaInformation from "./MetaInformation";
 import { SpellCastingClass } from "@/types/classes";
-import CardDivider from "../SVG/CardDivider";
 import classToColor from "@/lib/classToColor";
-import ResizableText from "../ResizingText";
 import TextResize from "../TextResize/TextResize";
 import classNames from "classnames";
+
+import fastHashCode from "fast-hash-code";
 
 const mirza = Mirza({
   subsets: ["latin"],
@@ -62,6 +62,10 @@ export default async function SpellRender({
     damage,
   }: Spell = spell;
 
+  const genKey = (content: string) => {
+    return fastHashCode(`${name}/${content}`);
+  };
+
   const levelAsText = ordinalLevel(level);
   const areaOfEffectDescription = getAreaOfEffectDescription(areaOfEffect);
 
@@ -73,9 +77,11 @@ export default async function SpellRender({
   };
 
   const parseDamageAtLevel = (damage?: Damage) => {
-    if(!damage?.damage_at_slot_level) return null;
+    if (!damage?.damage_at_slot_level) return null;
 
-    return Object.keys(damage.damage_at_slot_level).map(key => `${key}: ${damage.damage_at_slot_level[key]}`).join(', ')
+    return Object.keys(damage.damage_at_slot_level)
+      .map((key) => `${key}: ${damage.damage_at_slot_level[key]}`)
+      .join(", ");
   };
 
   const spellType =
@@ -89,7 +95,9 @@ export default async function SpellRender({
       .map((line) => {
         if (line.match(regex)) {
           return (
-            <span className="font-bold">{line.replaceAll("***", "")}</span>
+            <span key={genKey(line)} className={mirza.className}>
+              {line.replaceAll("***", "")}
+            </span>
           );
         }
         return line;
@@ -100,24 +108,34 @@ export default async function SpellRender({
 
   const color = classToColor(dndClass);
 
+  const descWordCount =
+    (desc?.reduce((acc, current) => acc + current.length, 0) ?? 0) +
+    (atHigherLevel?.reduce((acc, current) => acc + current.length, 0) ?? 0);
+
+  const useSmallMetaInfo = descWordCount > 1000;
+
   const textResizeClass = classNames({
-     "!h-[210px]": !damage,
-     "!max-h-[210px]": !damage,
-     "!h-[195px]": !!damage,
-     "!max-h-[195px]": !!damage
-  })
+    "!h-[224px]": !damage && !useSmallMetaInfo,
+    "!h-[209px]": !!damage && !useSmallMetaInfo,
+    "!h-[254px]": !damage && useSmallMetaInfo,
+    "!h-[239px]": !!damage && useSmallMetaInfo,
+  });
+
+  const metaGridClass = classNames("grid", "text-[11px]", {
+    "grid-cols-2": useSmallMetaInfo,
+  });
 
   return (
     <div
-      className="antialiased relative box-border font-sans w-[250px] h-[358px] min-h-0 overflow-hidden border border-2 border-solid rounded"
+      className="relative box-border h-[358px] min-h-0 w-[250px] overflow-hidden rounded border border-2 border-solid bg-white font-sans antialiased"
       style={{ borderColor: color }}
     >
       <CornerStarIcon
-        className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2"
+        className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2"
         style={{ fill: color }}
       />
       <CornerStarIcon
-        className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2"
+        className="absolute right-0 top-0 -translate-y-1/2 translate-x-1/2"
         style={{ fill: color }}
       />
       <CornerStarIcon
@@ -128,15 +146,15 @@ export default async function SpellRender({
         className="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2"
         style={{ fill: color }}
       />
-      <div className="p-2 h-full">
+      <div className="h-full p-2">
         <p
-          className="mx-1 mt-1 mb-2 text-lg text-center font-bold border-0 border-b-2 border-solid"
+          className="mx-1 -mt-1 mb-2 border-0 border-b-2 border-solid text-center text-lg font-bold"
           style={{ borderColor: color }}
         >
           <span className={mirza.className}>{name}</span>
         </p>
         {/* <CardDivider style={{ fill: color }} /> */}
-        <div className="text-[11px]">
+        <div className={metaGridClass}>
           <MetaInformation
             color={color}
             type="casting-time"
@@ -172,25 +190,28 @@ export default async function SpellRender({
             />
           )} */}
         </div>
-        <p
-          className="mx-1 mt-1 mb-2 text-lg text-center font-bold border-0 border-b-2 border-solid"
+        <div
+          className="mx-1 mb-1 mt-1 border-0 border-b-2 border-solid text-center text-lg font-bold"
           style={{ borderColor: color }}
-        >
-        </p>
+        ></div>
 
         <div className={textResizeClass}>
-          <TextResize defaultFontSize={10} minFontSize={5} maxFontSize={13}>
+          <TextResize defaultFontSize={10} minFontSize={5} maxFontSize={10}>
             {desc?.map((line) => (
-              <p className="my-1">{parseMarkdown(line)}</p>
+              <p key={genKey(line)} className="my-1">
+                {parseMarkdown(line)}
+              </p>
             ))}
             {atHigherLevel && atHigherLevel.length > 0 && (
-            <p className="mt-1 mb-0 text-xs">
-              <span className={mirza.className}>At Higher Levels:</span>
-            </p>
-          )}
-          {atHigherLevel?.map((line) => (
-            <p className="my-1">{parseMarkdown(line)}</p>
-          ))}
+              <p className="-mb-1 mt-1 text-xs">
+                <span className={mirza.className}>At Higher Levels:</span>
+              </p>
+            )}
+            {atHigherLevel?.map((line) => (
+              <p key={genKey(line)} className="my-1">
+                {parseMarkdown(line)}
+              </p>
+            ))}
           </TextResize>
         </div>
       </div>

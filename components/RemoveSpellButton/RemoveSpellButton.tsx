@@ -35,13 +35,13 @@ export default function RemoveSpellButton({
   };
 
   return (
-    <div className="absolute right-1 top-1 z-50 m-2">
+    <div className="absolute right-0.5 top-0.5 z-50 m-2">
       <Button
         style={{
           boxShadow:
             "0 6px 16px 0 rgba(0, 0, 0, 0.08),0 3px 6px -4px rgba(0, 0, 0, 0.12),0 9px 28px 8px rgba(0, 0, 0, 0.05)",
         }}
-        danger
+        type="primary"
         shape="circle"
         icon={<DeleteOutlined />}
         onClick={removeSpell}

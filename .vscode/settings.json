@@ -9,6 +9,9 @@
     },
     "cSpell.words": [
         "antd"
-    ]
+    ],
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }
     

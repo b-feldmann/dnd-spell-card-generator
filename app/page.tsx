@@ -12,14 +12,16 @@ export default async function Home({
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const spellsAndClasses: SpellAndClass[] = toSpellsAndClasses(searchParams)
+  const spellsAndClasses: SpellAndClass[] = toSpellsAndClasses(searchParams);
 
   const selectedClass = searchParams?.class ?? "cleric";
   const dndClass: SpellCastingClass = Array.isArray(selectedClass)
     ? selectedClass[0]
     : selectedClass;
 
-  const printParams = spellsAndClasses.map(spellAndClass => `${spellAndClass.spell}/${spellAndClass.dndClass}`)
+  const printParams = spellsAndClasses.map(
+    (spellAndClass) => `${spellAndClass.spell}/${spellAndClass.dndClass}`,
+  );
 
   return (
     <ConfigProvider theme={theme}>
@@ -28,7 +30,14 @@ export default async function Home({
           <SpellList skipSpells={printParams} dndClass={dndClass} />
         </div>
         <div className="col-span-9">
-          {spellsAndClasses && <SpellBook spellsAndClasses={spellsAndClasses} columns={3} />}
+          {spellsAndClasses && (
+            <div
+              className="overflow-auto scroll-smooth"
+              style={{ height: "calc(100vh - 18px)" }}
+            >
+              <SpellBook spellsAndClasses={spellsAndClasses} columns={3} />
+            </div>
+          )}
         </div>
       </div>
       <PrintButton searchParams={`?s=${printParams.join("&s=")}`} />

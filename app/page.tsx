@@ -35,7 +35,7 @@ export default async function Home({
               className="overflow-auto scroll-smooth"
               style={{ height: "calc(100vh - 18px)" }}
             >
-              <SpellBook spellsAndClasses={spellsAndClasses} columns={3} />
+              <SpellBook spellsAndClasses={spellsAndClasses} columns={5} />
             </div>
           )}
         </div>

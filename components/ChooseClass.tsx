@@ -31,6 +31,7 @@ export default function ChooseClass({
       onChange={chooseClass}
       defaultValue={initialClass}
       options={[
+        { value: "artificer", label: "Artificer" },
         { value: "cleric", label: "Cleric" },
         { value: "bard", label: "Bard" },
         { value: "druid", label: "Druid" },

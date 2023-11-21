@@ -15,12 +15,15 @@
     "@react-pdf/renderer": "^3.1.14",
     "antd": "^5.11.0",
     "classnames": "^2.3.2",
+    "csv-parse": "^5.5.2",
     "fast-hash-code": "^2.1.0",
     "next": "14.0.1",
+    "node-xlsx": "^0.23.0",
     "puppeteer": "^21.5.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-virtualized-auto-sizer": "^1.0.20"
+    "react-virtualized-auto-sizer": "^1.0.20",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "^20",

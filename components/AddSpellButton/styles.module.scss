@@ -1,31 +1,72 @@
+.artificer {
+  background-color: #a7c7e7 !important;
+  color: black !important;
+}
+
+.artificer:hover {
+  background-color: color-mix(in srgb, #a7c7e7 80%, white) !important;
+}
+
 .bard {
-    background-color: #AB6DAC !important;
+  background-color: #ab6dac !important;
+}
+
+.bard:hover {
+  background-color: color-mix(in srgb, #ab6dac 80%, white) !important;
 }
 
 .cleric {
-    background-color: #91A1B2 !important;
+  background-color: #91a1b2 !important;
+}
+
+.cleric:hover {
+  background-color: color-mix(in srgb, #91a1b2 80%, white) !important;
 }
 
 .druid {
-    background-color: #7A853B !important;
+  background-color: #7a853b !important;
+}
+
+.druid:hover {
+  background-color: color-mix(in srgb, #7a853b 80%, white) !important;
 }
 
 .paladin {
-    background-color: #B59E54 !important;
+  background-color: #b59e54 !important;
+}
+
+.paladin:hover {
+  background-color: color-mix(in srgb, #b59e54 80%, white) !important;
 }
 
 .ranger {
-    background-color: #507F60 !important;
+  background-color: #507f60 !important;
+}
+
+.ranger:hover {
+  background-color: color-mix(in srgb, #507f60 80%, white) !important;
 }
 
 .sorcerer {
-    background-color: #992E2E !important;
+  background-color: #992e2e !important;
+}
+
+.sorcerer:hover {
+  background-color: color-mix(in srgb, #992e2e 80%, white) !important;
 }
 
 .warlock {
-    background-color: #7B469B !important;
+  background-color: #7b469b !important;
+}
+
+.warlock:hover {
+  background-color: color-mix(in srgb, #7b469b 80%, white) !important;
 }
 
 .wizard {
-    background-color: #2A50A1 !important;
+  background-color: #2a50a1 !important;
+}
+
+.wizard:hover {
+  background-color: color-mix(in srgb, #2a50a1 80%, white) !important;
 }

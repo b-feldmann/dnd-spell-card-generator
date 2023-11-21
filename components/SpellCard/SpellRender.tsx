@@ -1,6 +1,6 @@
 import { Mirza } from "next/font/google";
 
-import Spell, { SpellAreaOfEffect, Damage } from "@/types/spell";
+import Spell, { Dnd5eSpellAreaOfEffect, Dnd5eDamage } from "@/types/spell";
 
 import CornerStarIcon from "@/components/SVG/CornerStar";
 import MetaInformation from "./MetaInformation";
@@ -38,26 +38,19 @@ export default async function SpellRender({
     return `${level}th-level`;
   };
 
-  const getAreaOfEffectDescription = (areaOfEffect?: SpellAreaOfEffect) => {
-    if (!areaOfEffect) return "";
-    const { type, size } = areaOfEffect;
-
-    return type + " " + size;
-  };
-
   const {
     name,
     level,
-    school: { name: school },
+    school,
     desc,
-    higher_level: atHigherLevel,
-    casting_time: castingTime,
+    atHigherLevel,
+    castingTime,
     duration,
     range,
     concentration,
     ritual,
     components,
-    area_of_effect: areaOfEffect,
+    areaOfEffect,
     damage,
   }: Spell = spell;
 
@@ -66,22 +59,11 @@ export default async function SpellRender({
   };
 
   const levelAsText = ordinalLevel(level);
-  const areaOfEffectDescription = getAreaOfEffectDescription(areaOfEffect);
 
   const concentrationDescription = concentration ? "(C)" : "";
   const ritualDescription = ritual ? "or Ritual" : "";
 
-  const parseDamage = (damage?: Damage) => {
-    return damage?.damage_type?.name;
-  };
-
-  const parseDamageAtLevel = (damage?: Damage) => {
-    if (!damage?.damage_at_slot_level) return null;
-
-    return Object.keys(damage.damage_at_slot_level)
-      .map((key) => `${key}: ${damage.damage_at_slot_level[key]}`)
-      .join(", ");
-  };
+  console.log(spell);
 
   const spellType =
     level === 0 ? `${school} ${levelAsText}` : `${levelAsText} ${school}`;
@@ -162,7 +144,7 @@ export default async function SpellRender({
           <MetaInformation
             color={color}
             type="range"
-            content={`${range} ${areaOfEffectDescription}`}
+            content={`${range} ${areaOfEffect}`}
           />
           <MetaInformation
             color={color}
@@ -175,11 +157,7 @@ export default async function SpellRender({
             content={`${duration} ${concentrationDescription}`}
           />
           {damage && (
-            <MetaInformation
-              color={color}
-              type="damage"
-              content={parseDamage(damage)}
-            />
+            <MetaInformation color={color} type="damage" content={damage} />
           )}
           {/* {damage && (
             <MetaInformation

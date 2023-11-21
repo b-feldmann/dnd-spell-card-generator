@@ -1,11 +1,17 @@
 export type SpellCastingClass =
-    | "bard"
-    | "cleric"
-    | "druid"
-    | "paladin"
-    | "ranger"
-    | "sorcerer"
-    | "warlock"
-    | "wizard"
+  | "artificer"
+  | "bard"
+  | "cleric"
+  | "druid"
+  | "paladin"
+  | "ranger"
+  | "sorcerer"
+  | "warlock"
+  | "wizard";
 
-export type DndClass = spellCastingClass | "barbarian" | "fighter" | "monk" | "rouge"
+export type DndClass =
+  | spellCastingClass
+  | "barbarian"
+  | "fighter"
+  | "monk"
+  | "rouge";

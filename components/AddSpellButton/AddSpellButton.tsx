@@ -36,6 +36,7 @@ export default function AddSpellButton({
     "w-full": true,
     "!text-left": true,
   };
+  buttonClassConfig[styles.artificer] = dndClass === "artificer";
   buttonClassConfig[styles.bard] = dndClass === "bard";
   buttonClassConfig[styles.cleric] = dndClass === "cleric";
   buttonClassConfig[styles.druid] = dndClass === "druid";

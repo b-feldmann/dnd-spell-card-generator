@@ -1,22 +1,22 @@
 import { SpellCastingClass } from "./classes";
 
-export interface SpellAreaOfEffect {
+export interface Dnd5eSpellAreaOfEffect {
   size?: number;
   type?: string;
 }
 
-export interface Damage {
-  damage_type: ApiReference;
+export interface Dnd5eDamage {
+  damage_type: Dnd5eApiReference;
   damage_at_slot_level: { [key: string]: string };
 }
 
-export interface ApiReference {
+export interface Dnd5eApiReference {
   index: string;
   name: string;
   url: string;
 }
 
-export default interface Spell {
+export interface Dnd5eSpell {
   name: String;
   desc?: string[];
   level: number;
@@ -24,23 +24,37 @@ export default interface Spell {
   casting_time?: string;
   range?: string;
   components?: string[];
-  area_of_effect?: SpellAreaOfEffect;
+  area_of_effect?: Dnd5eSpellAreaOfEffect;
   ritual?: boolean;
   duration?: string;
   concentration?: boolean;
+  school: Dnd5eApiReference;
+  classes?: Dnd5eApiReference[];
+  subclasses?: Dnd5eApiReference[];
   attack_type?: string;
-  damage?: any;
-  school: ApiReference;
-  classes?: ApiReference[];
-  subclasses?: ApiReference[];
-  attack_type?: string;
-  damage?: Damage;
+  damage?: Dnd5eDamage;
+}
+
+export default interface Spell {
+  name: string;
+  desc?: string[];
+  level: number;
+  atHigherLevel?: string[];
+  castingTime?: string;
+  range?: string;
+  components?: string[];
+  areaOfEffect?: string;
+  ritual?: boolean;
+  duration?: string;
+  concentration?: boolean;
+  school: string;
+  damage?: string;
 }
 
 export interface SpellListEntry {
-  index: string;
   name: string;
   url: string;
+  level?: number;
 }
 
 export interface SpellAndClass {

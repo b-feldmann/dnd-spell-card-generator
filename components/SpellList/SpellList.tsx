@@ -1,7 +1,9 @@
-import { SpellListEntry } from "@/types/spell";
-import SpellListRender from "./SpellListRender";
+import { readClassSpellList } from "@/actions/readExcelDatabase";
+import spellNameToUrl from "@/lib/spellNameToUrl";
 import { SpellCastingClass } from "@/types/classes";
+import Spell, { SpellListEntry } from "@/types/spell";
 import ChooseClass from "../ChooseClass";
+import SpellListRender from "./SpellListRender";
 
 async function getSpells(dndClass: SpellCastingClass) {
   const res = await fetch(
@@ -22,20 +24,30 @@ export default async function SpellList({
   skipSpells: string[];
   dndClass: SpellCastingClass;
 }) {
-  const spells: SpellListEntry[] = await getSpells(dndClass).then(
-    (res) => res.results,
-  );
+  // const rawSpells: Dnd5eApiReference[] = await getSpells(dndClass).then(
+  //   (res) => res.results,
+  // );
+
+  const dbList: Spell[] = await readClassSpellList(dndClass);
+
+  // const spellList: SpellListEntry[] = rawSpells.map((raw) => {
+  //   return { name: raw.name, url: raw.url };
+  // });
+
+  const spellList: SpellListEntry[] = dbList.map((raw) => {
+    return {
+      name: raw.name,
+      url: spellNameToUrl(raw.name),
+      level: raw.level,
+    };
+  });
 
   const spellFilter = (spell: SpellListEntry) => {
     const parsedSpellName = spell.name.toLowerCase().split(/ |\//).join("-");
     return !skipSpells.includes(`${parsedSpellName}/${dndClass}`);
   };
 
-  const filteredSpells = spells
-    .filter(spellFilter)
-    .sort((a, b) =>
-      a.name.localeCompare(b.name, "en", { sensitivity: "variant" }),
-    );
+  const filteredSpells = spellList.filter(spellFilter);
 
   return (
     <div className="max-h-screen">

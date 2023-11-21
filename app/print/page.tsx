@@ -1,5 +1,5 @@
-import SpellBook from "@/components/SpellBook";
-import { toSpellsAndClasses } from "@/lib/searchParamsConverter";
+import SpellBook from "@/app/components/SpellBook";
+import { toSpellsAndClasses } from "@/app/lib/searchParamsConverter";
 import { SpellAndClass } from "@/types/spell";
 import { ConfigProvider } from "antd";
 import theme from "../../theme/themeConfig";

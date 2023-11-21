@@ -1,11 +1,11 @@
 import { ConfigProvider } from "antd";
 import theme from "@/theme/themeConfig";
-import SpellBook from "@/components/SpellBook";
-import SpellList from "@/components/SpellList/SpellList";
-import { PrintButton } from "@/components/PrintButton";
+import SpellBook from "@/app/components/SpellBook";
+import SpellList from "@/app/components/SpellList/SpellList";
+import { PrintButton } from "@/app/components/PrintButton";
 import { SpellCastingClass } from "@/types/classes";
 import { SpellAndClass } from "@/types/spell";
-import { toSpellsAndClasses } from "@/lib/searchParamsConverter";
+import { toSpellsAndClasses } from "@/app/lib/searchParamsConverter";
 
 export default async function Home({
   searchParams,

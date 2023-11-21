@@ -1,5 +1,5 @@
 import { readClassSpellList } from "@/app/actions/readExcelDatabase";
-import spellNameToUrl from "@/lib/spellNameToUrl";
+import spellNameToUrl from "@/app/lib/spellNameToUrl";
 import { SpellCastingClass } from "@/types/classes";
 import Spell, { SpellListEntry } from "@/types/spell";
 import ChooseClass from "../ChooseClass";

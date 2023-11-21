@@ -2,8 +2,8 @@ import { Mirza } from "next/font/google";
 
 import Spell from "@/types/spell";
 
-import CornerStarIcon from "@/components/SVG/CornerStar";
-import classToColor from "@/lib/classToColor";
+import CornerStarIcon from "@/app/components/SVG/CornerStar";
+import classToColor from "@/app/lib/classToColor";
 import { SpellCastingClass } from "@/types/classes";
 import classNames from "classnames";
 import TextResize from "../TextResize/TextResize";

@@ -1,11 +1,9 @@
-import { cache } from "react";
-import xlsx from "node-xlsx";
-import fs from "fs";
-import { parse } from "csv-parse";
-import Spell from "@/types/spell";
 import { SpellCastingClass } from "@/types/classes";
-
-export const revalidate = 3600; // revalidate the data at most every hour
+import Spell from "@/types/spell";
+import { parse } from "csv-parse";
+import fs from "fs";
+import xlsx from "node-xlsx";
+import { cache } from "react";
 
 export const readExcelDatabase = cache(async (id: string) => {
   const workSheetsFromFile = xlsx.parse(

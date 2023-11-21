@@ -63,8 +63,6 @@ export default async function SpellRender({
   const concentrationDescription = concentration ? "(C)" : "";
   const ritualDescription = ritual ? "or Ritual" : "";
 
-  console.log(spell);
-
   const spellType =
     level === 0 ? `${school} ${levelAsText}` : `${levelAsText} ${school}`;
 

@@ -1,13 +1,9 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Button } from "antd";
-import {
-  CloseOutlined,
-  DeleteOutlined,
-  DeleteTwoTone,
-} from "@ant-design/icons";
 import { SpellCastingClass } from "@/types/classes";
+import { DeleteOutlined } from "@ant-design/icons";
+import { Button } from "antd";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function RemoveSpellButton({
   spell,

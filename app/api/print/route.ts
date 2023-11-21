@@ -1,9 +1,5 @@
 import puppeteer from "puppeteer";
 
-function waitingTime(ms: number) {
-  return new Promise((resolve) => setTimeout(() => resolve(), ms));
-}
-
 const saveAsPdf = async (url: string) => {
   const browser = await puppeteer.launch({
     headless: "new",
@@ -46,7 +42,7 @@ export async function GET(request: Request) {
     : [];
 
   const pdf = await saveAsPdf(
-    "http://localhost:3000/spells/print?" + params.toString(),
+    "http://localhost:3000/print?" + params.toString(),
   );
 
   return new Response(pdf);

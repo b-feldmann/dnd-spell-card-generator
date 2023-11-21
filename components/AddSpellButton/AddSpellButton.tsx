@@ -1,11 +1,11 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Button } from "antd";
 import { SpellCastingClass } from "@/types/classes";
+import { Button } from "antd";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import styles from "./styles.module.scss";
 import classNames from "classnames";
+import styles from "./styles.module.scss";
 
 export default function AddSpellButton({
   spellName,
@@ -36,14 +36,23 @@ export default function AddSpellButton({
     "w-full": true,
     "!text-left": true,
   };
+  // @ts-ignore
   buttonClassConfig[styles.artificer] = dndClass === "artificer";
+  // @ts-ignore
   buttonClassConfig[styles.bard] = dndClass === "bard";
+  // @ts-ignore
   buttonClassConfig[styles.cleric] = dndClass === "cleric";
+  // @ts-ignore
   buttonClassConfig[styles.druid] = dndClass === "druid";
+  // @ts-ignore
   buttonClassConfig[styles.paladin] = dndClass === "paladin";
+  // @ts-ignore
   buttonClassConfig[styles.ranger] = dndClass === "ranger";
+  // @ts-ignore
   buttonClassConfig[styles.sorcerer] = dndClass === "sorcerer";
+  // @ts-ignore
   buttonClassConfig[styles.warlock] = dndClass === "warlock";
+  // @ts-ignore
   buttonClassConfig[styles.wizard] = dndClass === "wizard";
 
   const buttonClass = classNames(buttonClassConfig);

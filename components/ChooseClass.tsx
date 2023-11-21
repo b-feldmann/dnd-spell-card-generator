@@ -1,8 +1,8 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Select } from "antd";
 import { SpellCastingClass } from "@/types/classes";
+import { Select } from "antd";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function ChooseClass({
   initialClass,

@@ -1,9 +1,9 @@
 import classNames from "classnames";
 
+import { SpellAndClass } from "@/types/spell";
+import RemoveSpellButton from "./RemoveSpellButton/RemoveSpellButton";
 import ScalingSpellCard from "./ScalingSpellCard";
 import SpellCard from "./SpellCard/SpellCard";
-import RemoveSpellButton from "./RemoveSpellButton/RemoveSpellButton";
-import { SpellAndClass } from "@/types/spell";
 
 export default function SpellBook({
   spellsAndClasses,
@@ -28,7 +28,7 @@ export default function SpellBook({
   });
 
   const generateCard = (spellAndClass: SpellAndClass) => {
-    const { spell: name, dndClass } = spellAndClass
+    const { spell: name, dndClass } = spellAndClass;
 
     if (print) {
       return <SpellCard spellName={name} dndClass={dndClass} />;

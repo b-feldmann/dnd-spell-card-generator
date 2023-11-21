@@ -15,9 +15,10 @@ export default async function Home({
   const spellsAndClasses: SpellAndClass[] = toSpellsAndClasses(searchParams);
 
   const selectedClass = searchParams?.class ?? "cleric";
-  const dndClass: SpellCastingClass = Array.isArray(selectedClass)
+  const stringDndClass: string = Array.isArray(selectedClass)
     ? selectedClass[0]
     : selectedClass;
+  const dndClass: SpellCastingClass = stringDndClass as SpellCastingClass;
 
   const printParams = spellsAndClasses.map(
     (spellAndClass) => `${spellAndClass.spell}/${spellAndClass.dndClass}`,

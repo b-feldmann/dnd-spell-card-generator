@@ -1,4 +1,4 @@
-import { readClassSpellList } from "@/actions/readExcelDatabase";
+import { readClassSpellList } from "@/app/actions/readExcelDatabase";
 import spellNameToUrl from "@/lib/spellNameToUrl";
 import { SpellCastingClass } from "@/types/classes";
 import Spell, { Dnd5eSpell, Dnd5eSpellAreaOfEffect } from "@/types/spell";

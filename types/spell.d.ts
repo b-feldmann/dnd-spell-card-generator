@@ -17,7 +17,7 @@ export interface Dnd5eApiReference {
 }
 
 export interface Dnd5eSpell {
-  name: String;
+  name: string;
   desc?: string[];
   level: number;
   higher_level?: string[];

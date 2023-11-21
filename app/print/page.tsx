@@ -2,7 +2,7 @@ import SpellBook from "@/components/SpellBook";
 import { toSpellsAndClasses } from "@/lib/searchParamsConverter";
 import { SpellAndClass } from "@/types/spell";
 import { ConfigProvider } from "antd";
-import theme from "../../../theme/themeConfig";
+import theme from "../../theme/themeConfig";
 
 export default async function Page({
   searchParams,

@@ -1,12 +1,16 @@
-import Spell, { Dnd5eSpell, Dnd5eSpellAreaOfEffect } from "@/types/spell";
-import SpellRender from "./SpellRender";
-import { SpellCastingClass } from "@/types/classes";
 import { readClassSpellList } from "@/actions/readExcelDatabase";
 import spellNameToUrl from "@/lib/spellNameToUrl";
+import { SpellCastingClass } from "@/types/classes";
+import Spell, { Dnd5eSpell, Dnd5eSpellAreaOfEffect } from "@/types/spell";
+import SpellRender from "./SpellRender";
 
-const EmptySpell: Spell = {
+export const EmptySpell: Spell = {
   name: "Loading",
   level: 0,
+  castingTime: "1 action",
+  range: "Touch",
+  duration: "Instantaneous",
+  components: ["V", "S", "M"],
   school: "Divination",
 };
 

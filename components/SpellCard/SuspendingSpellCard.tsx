@@ -1,20 +1,7 @@
-import Spell from "@/types/spell";
-import SpellRender from "./SpellRender";
-import { Suspense } from "react";
-import SpellCard from "./SpellCard";
 import { SpellCastingClass } from "@/types/classes";
-
-const EmptySpell: Spell = {
-  name: "Loading",
-  level: 0,
-  casting_time: "1 action",
-  range: "Touch",
-  duration: "Instantaneous",
-  components: ["M", "S", "M"],
-  school: {
-    name: "Divination",
-  },
-};
+import { Suspense } from "react";
+import SpellCard, { EmptySpell } from "./SpellCard";
+import SpellRender from "./SpellRender";
 
 export default async function SuspendingSpellCard({
   spellName,
@@ -24,8 +11,8 @@ export default async function SuspendingSpellCard({
   dndClass: SpellCastingClass;
 }) {
   return (
-    // <Suspense fallback={<SpellRender spell={EmptySpell} dndClass={dndClass} />}>
-    <SpellCard spellName={spellName} dndClass={dndClass} />
-    // </Suspense>
+    <Suspense fallback={<SpellRender spell={EmptySpell} dndClass={dndClass} />}>
+      <SpellCard spellName={spellName} dndClass={dndClass} />
+    </Suspense>
   );
 }

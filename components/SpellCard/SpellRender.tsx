@@ -1,13 +1,13 @@
 import { Mirza } from "next/font/google";
 
-import Spell, { Dnd5eSpellAreaOfEffect, Dnd5eDamage } from "@/types/spell";
+import Spell from "@/types/spell";
 
 import CornerStarIcon from "@/components/SVG/CornerStar";
-import MetaInformation from "./MetaInformation";
-import { SpellCastingClass } from "@/types/classes";
 import classToColor from "@/lib/classToColor";
-import TextResize from "../TextResize/TextResize";
+import { SpellCastingClass } from "@/types/classes";
 import classNames from "classnames";
+import TextResize from "../TextResize/TextResize";
+import MetaInformation from "./MetaInformation";
 
 import fastHashCode from "fast-hash-code";
 

@@ -2,7 +2,7 @@ import { Mirza } from "next/font/google";
 
 import Spell from "@/types/spell";
 
-import CornerStarIcon from "@/app/components/SVG/CornerStar";
+import CornerStarSvg from "../../../public/cornerStar.svg";
 import classToColor from "@/app/lib/classToColor";
 import { SpellCastingClass } from "@/types/classes";
 import classNames from "classnames";
@@ -25,10 +25,10 @@ export const CARD_HEIGHT = 356;
 
 export default async function SpellRender({
   spell,
-  dndClass = "cleric",
+  dndClass,
 }: {
   spell: Spell;
-  dndClass?: SpellCastingClass;
+  dndClass: SpellCastingClass;
 }) {
   const ordinalLevel = (level: number) => {
     if (level === 0) return "Cantrip";
@@ -110,22 +110,22 @@ export default async function SpellRender({
       style={{ borderColor: color }}
       key={`spell-render-${name}`}
     >
-      {/* <CornerStarIcon
+      <CornerStarSvg
         className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2"
-        style={{ fill: color }}
+        fill={color}
       />
-      <CornerStarIcon
+      <CornerStarSvg
         className="absolute right-0 top-0 -translate-y-1/2 translate-x-1/2"
-        style={{ fill: color }}
+        fill={color}
       />
-      <CornerStarIcon
+      <CornerStarSvg
         className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2"
-        style={{ fill: color }}
+        fill={color}
       />
-      <CornerStarIcon
+      <CornerStarSvg
         className="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2"
-        style={{ fill: color }}
-      /> */}
+        fill={color}
+      />
       <div className="h-full p-2">
         <p
           className="mx-1 -mt-1 mb-2 border-0 border-b-2 border-solid text-center text-lg font-bold"

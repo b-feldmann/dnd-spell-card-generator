@@ -1,7 +1,10 @@
 import { SpellCastingClass } from "@/types/classes";
 import { Suspense } from "react";
-import SpellCard, { EmptySpell } from "./SpellCard";
-import SpellRender from "./SpellRender";
+import BlankSpellRender from "./BlankSpellRender";
+// import SpellCard from "./SpellCard";
+import React from "react";
+
+const SpellCard = React.lazy(() => import("./SpellCard"));
 
 export default async function SuspendingSpellCard({
   spellName,
@@ -11,8 +14,10 @@ export default async function SuspendingSpellCard({
   dndClass: SpellCastingClass;
 }) {
   return (
-    // <Suspense fallback={<SpellRender spell={EmptySpell} dndClass={dndClass} />}>
-    <SpellCard spellName={spellName} dndClass={dndClass} />
-    // </Suspense>
+    <Suspense
+      fallback={<BlankSpellRender spellName={spellName} dndClass={dndClass} />}
+    >
+      <SpellCard spellName={spellName} dndClass={dndClass} />
+    </Suspense>
   );
 }

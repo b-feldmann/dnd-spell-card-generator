@@ -3,10 +3,12 @@ import Spell from "@/types/spell";
 import { parse } from "csv-parse";
 import fs from "fs";
 import { cache } from "react";
-
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+import {
+  capitalizeFirstLetter,
+  generateAtHigherLevel,
+  generateDamageType,
+  generateMaterial,
+} from "../lib/spellUtils";
 
 export const readClassSpellList = cache(async (dndClass: SpellCastingClass) => {
   const records = [];
@@ -26,24 +28,25 @@ export const readClassSpellList = cache(async (dndClass: SpellCastingClass) => {
 
   const spellList: Spell[] = [];
   records.forEach((entry) => {
+    const name = entry[1].replace(/\s*\((R|r)itual\)\s*/, "").trim();
+
+    if (spellList.find((spell) => spell.name === name)) return;
+
     const range = entry[4].replace(/\(.*\)/, "");
 
-    const descSplit = entry[7].split(
-      /(?=When you cas this spell using a spell slot of|The spell's damage increases by)/g,
-    );
-
-    const desc: string[] = descSplit[0]
+    const descSplit = entry[7]
       .split(/<br>|\\n/)
       .map((s: string) => s.trim())
-      .filter((s: string) => s && spellList.length > 0);
-    const atHigherLevel: string[] | undefined = descSplit[1]
-      ?.split(/<br>|\\n/)
-      .map((s: string) => s.trim())
-      .filter((s: string) => s && spellList.length > 0);
+      .filter((s: string) => s && s.length > 0);
+
+    const { desc, atHigherLevel } = generateAtHigherLevel(descSplit);
+    const material = generateMaterial(desc);
+
+    if (material && desc) desc[0] = desc[0].replace(material, "");
 
     spellList.push({
       level: parseInt(entry[0]),
-      name: entry[1].replace(/\s*\((R|r)itual\)\s*/, "").trim(),
+      name: name,
       school: entry[2]
         .replace("level", "")
         .replace("cantrip", "")
@@ -60,6 +63,8 @@ export const readClassSpellList = cache(async (dndClass: SpellCastingClass) => {
       concentration: entry[6].toLowerCase().includes("concentration"),
       ritual: entry[1].toLowerCase().includes("ritual"),
       atHigherLevel: atHigherLevel,
+      damage: generateDamageType(desc),
+      material: material?.replace(/\(|\)/g, ""),
     });
   });
 

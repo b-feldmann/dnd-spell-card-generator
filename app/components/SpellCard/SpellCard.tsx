@@ -1,7 +1,11 @@
 import { readClassSpellList } from "@/app/actions/readExcelDatabase";
-import spellNameToUrl from "@/app/lib/spellNameToUrl";
+import { generateAtHigherLevel, spellNameToUrl } from "@/app/lib/spellUtils";
 import { SpellCastingClass } from "@/types/classes";
-import Spell, { Dnd5eSpell, Dnd5eSpellAreaOfEffect } from "@/types/spell";
+import Spell, {
+  DamageTypes,
+  Dnd5eSpell,
+  Dnd5eSpellAreaOfEffect,
+} from "@/types/spell";
 import SpellRender from "./SpellRender";
 
 export const EmptySpell: Spell = {
@@ -39,20 +43,26 @@ async function getSpell(spellName: string, dndClass: SpellCastingClass) {
 
   const rawSpell: Dnd5eSpell = await res.json();
 
+  const { desc, atHigherLevel } = generateAtHigherLevel(
+    rawSpell.desc,
+    rawSpell.higher_level,
+  );
+
   const spell: Spell = {
     name: rawSpell.name,
-    desc: rawSpell.desc,
+    desc: desc,
     level: rawSpell.level,
-    atHigherLevel: rawSpell.higher_level,
+    atHigherLevel: atHigherLevel,
     castingTime: rawSpell.casting_time,
     range: rawSpell.range,
     components: rawSpell.components,
+    material: rawSpell.material,
     areaOfEffect: getAreaOfEffectDescription(rawSpell.area_of_effect),
     ritual: rawSpell.ritual,
     duration: rawSpell.duration,
     concentration: rawSpell.concentration,
     school: rawSpell.school.name,
-    damage: rawSpell.damage?.damage_type.name,
+    damage: rawSpell.damage?.damage_type.name as DamageTypes,
   };
 
   return spell;

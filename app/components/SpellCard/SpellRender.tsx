@@ -2,23 +2,20 @@ import { Mirza } from "next/font/google";
 
 import Spell from "@/types/spell";
 
-import CornerStarSvg from "../../../public/cornerStar.svg";
 import classToColor from "@/app/lib/classToColor";
 import { SpellCastingClass } from "@/types/classes";
 import classNames from "classnames";
+import CornerStarSvg from "../../../public/cornerStar.svg";
 import TextResize from "../TextResize/TextResize";
 import MetaInformation from "./MetaInformation";
 
+import { capitalizeFirstLetter } from "@/app/lib/spellUtils";
 import fastHashCode from "fast-hash-code";
 
 const mirza = Mirza({
   subsets: ["latin"],
   weight: "600",
 });
-
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
 export const CARD_WIDTH = 250;
 export const CARD_HEIGHT = 356;
@@ -52,6 +49,7 @@ export default async function SpellRender({
     concentration,
     ritual,
     components,
+    material,
     areaOfEffect,
     damage,
   }: Spell = spell;
@@ -69,15 +67,28 @@ export default async function SpellRender({
     level === 0 ? `${school} ${levelAsText}` : `${levelAsText} ${school}`;
 
   const parseMarkdown = (content: string) => {
-    const regex = /(\*\*\*.*\*\*\*)/g;
+    const boldRegex = /(\*\*\*.*\*\*\*)|(<b>.*<\/b>)/g;
+    const italicRegex = /(<i>.*<\/i>|\(?[1-9]?[0-9]d[1-9]?[0-9]\)?)/g;
     const splicedContent = content
-      .split(regex)
-      .filter((line) => line.length > 0)
+      .split(boldRegex)
+      .filter((line) => line && line.length > 0)
+      .flatMap((line) => line.split(italicRegex))
+      .filter((line) => line && line.length > 0)
       .map((line) => {
-        if (line.match(regex)) {
+        if (line.match(boldRegex)) {
           return (
-            <span key={genKey(line)} className={mirza.className}>
-              {line.replaceAll("***", "")}
+            <span
+              key={genKey(line)}
+              className={mirza.className}
+              style={{ fontSize: "1.3em" }}
+            >
+              {line.replaceAll(/\*\*\*|<b>|<\/b>/g, "")}
+            </span>
+          );
+        } else if (line.match(italicRegex)) {
+          return (
+            <span key={genKey(line)} className="italic">
+              {line.replaceAll(/<i>|<\/i>/g, "")}
             </span>
           );
         }
@@ -89,11 +100,27 @@ export default async function SpellRender({
 
   const color = classToColor(dndClass);
 
+  const useMaterial = material?.includes("which the spell consumes");
+
+  const materialSpan = (
+    <span style={{ fontSize: "0.7em" }}>{` (${material?.replace(
+      /, which the spell consumes\.?/,
+      "",
+    )})`}</span>
+  );
+
+  const componentsSpan = (
+    <span>
+      {components}
+      {useMaterial && materialSpan}
+    </span>
+  );
+
   const descWordCount =
     (desc?.reduce((acc, current) => acc + current.length, 0) ?? 0) +
     (atHigherLevel?.reduce((acc, current) => acc + current.length, 0) ?? 0);
 
-  const useSmallMetaInfo = descWordCount > 1000;
+  const useSmallMetaInfo = descWordCount > 1000 && !material;
 
   const textResizeClass = classNames({
     "!h-[224px]": !damage && !useSmallMetaInfo,
@@ -149,7 +176,7 @@ export default async function SpellRender({
           <MetaInformation
             color={color}
             type="components"
-            content={components}
+            content={componentsSpan}
           />
           <MetaInformation
             color={color}
@@ -173,8 +200,10 @@ export default async function SpellRender({
               </p>
             ))}
             {atHigherLevel && atHigherLevel.length > 0 && (
-              <p className="-mb-0.5 mt-1 text-xs">
-                <span className={mirza.className}>At Higher Levels:</span>
+              <p className="-mb-0.5 mt-1">
+                <span className={mirza.className} style={{ fontSize: "1.3em" }}>
+                  At Higher Levels:
+                </span>
               </p>
             )}
             {atHigherLevel?.map((line) => (

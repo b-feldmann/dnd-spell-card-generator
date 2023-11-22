@@ -35,7 +35,7 @@ export default function SpellBook({
     }
 
     return (
-      <div className="relative">
+      <div className="relative" key={`spell-card-wrapper-${name}`}>
         <RemoveSpellButton spell={name} dndClass={dndClass} />
         <ScalingSpellCard spellName={name} dndClass={dndClass} />
       </div>

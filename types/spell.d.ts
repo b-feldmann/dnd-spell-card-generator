@@ -24,6 +24,7 @@ export interface Dnd5eSpell {
   casting_time?: string;
   range?: string;
   components?: string[];
+  material?: string;
   area_of_effect?: Dnd5eSpellAreaOfEffect;
   ritual?: boolean;
   duration?: string;
@@ -43,13 +44,29 @@ export default interface Spell {
   castingTime?: string;
   range?: string;
   components?: string[];
+  material?: string;
   areaOfEffect?: string;
   ritual?: boolean;
   duration?: string;
   concentration?: boolean;
   school: string;
-  damage?: string;
+  damage?: DamageTypes;
 }
+
+export type DamageTypes =
+  | "Acid"
+  | "Bludgeoning"
+  | "Cold"
+  | "Fire"
+  | "Force"
+  | "Lightning"
+  | "Necrotic"
+  | "Piercing"
+  | "Poison"
+  | "Psychic"
+  | "Radiant"
+  | "Slashing"
+  | "Thunder";
 
 export interface SpellListEntry {
   name: string;

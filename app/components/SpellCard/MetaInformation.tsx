@@ -21,12 +21,12 @@ export default function MetaInformation({
   color,
 }: {
   type: "duration" | "range" | "casting-time" | "components" | "damage";
-  content?: string | string[];
+  content?: string | string[] | React.ReactNode;
   color?: string;
 }) {
   return (
-    <div className="-mt-1 flex">
-      <p className="m-0 pr-1 pt-[3.5px]">
+    <div className="-mt-0.5 flex">
+      <p className="m-0 pr-1 pt-[1.5px]">
         <Suspense fallback={""}>
           {type === "duration" && <DurationSvg fill={color} />}
           {type === "range" && <RangeSvg fill={color} />}

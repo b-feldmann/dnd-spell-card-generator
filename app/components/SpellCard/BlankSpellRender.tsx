@@ -5,11 +5,11 @@ import React, { Suspense } from "react";
 import CornerStarSvg from "../../../public/cornerStar.svg";
 
 export default async function SpellRender({
-  spellName,
+  spellKey,
   dndClass,
   children,
 }: {
-  spellName: string;
+  spellKey: string;
   dndClass: SpellCastingClass;
   children?: React.ReactNode;
 }) {
@@ -19,7 +19,7 @@ export default async function SpellRender({
     <div
       className="relative box-border h-[358px] min-h-0 w-[250px] overflow-hidden rounded border border-2 border-solid bg-white font-sans antialiased"
       style={{ borderColor: color }}
-      key={`spell-render-${spellName}`}
+      key={`spell-render-${spellKey}`}
     >
       <CornerStarSvg
         className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2"

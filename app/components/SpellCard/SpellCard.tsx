@@ -67,5 +67,5 @@ export default async function SpellCard({
 }) {
   const spell: Spell = await getSpell(spellName, dndClass);
 
-  return <SpellRender spell={spell} dndClass={dndClass} />;
+  return <SpellRender spell={spell} dndClass={dndClass} spellKey={spellName} />;
 }

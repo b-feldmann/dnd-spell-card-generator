@@ -1,9 +1,14 @@
 import { Mirza } from "next/font/google";
-import CastingTimeIcon from "../SVG/CastingTime";
-import ComponentsIcon from "../SVG/Components";
-import DamageIcon from "../SVG/Damage";
-import DurationIcon from "../SVG/Duration";
-import RangeIcon from "../SVG/Range";
+import { Suspense } from "react";
+import CastingTimeSvg from "../../../public/castingTime.svg";
+import ComponentsSvg from "../../../public/components.svg";
+import DamageSvg from "../../../public/damage.svg";
+import DurationSvg from "../../../public/duration.svg";
+import RangeSvg from "../../../public/range.svg";
+
+// const CastingTimeSvg = React.lazy(
+//   () => import("../../../public/castingTime.svg"),
+// );
 
 const mirzaLight = Mirza({
   subsets: ["latin"],
@@ -20,13 +25,15 @@ export default function MetaInformation({
   color?: string;
 }) {
   return (
-    <div className="-mt-0.5 flex">
-      <p className="m-0 pr-1 pt-[1.5px]">
-        {type === "duration" && <DurationIcon style={{ fill: color }} />}
-        {type === "range" && <RangeIcon style={{ fill: color }} />}
-        {type === "components" && <ComponentsIcon style={{ fill: color }} />}
-        {type === "casting-time" && <CastingTimeIcon style={{ fill: color }} />}
-        {type === "damage" && <DamageIcon style={{ fill: color }} />}
+    <div className="-mt-1 flex">
+      <p className="m-0 pr-1 pt-[3.5px]">
+        <Suspense fallback={""}>
+          {type === "duration" && <DurationSvg fill={color} />}
+          {type === "range" && <RangeSvg fill={color} />}
+          {type === "components" && <ComponentsSvg fill={color} />}
+          {type === "casting-time" && <CastingTimeSvg fill={color} />}
+          {type === "damage" && <DamageSvg fill={color} />}
+        </Suspense>
       </p>
       <p className="m-0">
         <span className={mirzaLight.className}>{content}</span>

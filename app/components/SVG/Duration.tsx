@@ -9,8 +9,8 @@ export default function DurationIcon({
 }) {
   return (
     <svg
-    className={className}
-    style={style}
+      className={className}
+      style={style}
       strokeWidth="0"
       viewBox="0 0 512 512"
       height="1.2em"

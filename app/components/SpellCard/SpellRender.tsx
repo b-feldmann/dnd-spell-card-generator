@@ -108,8 +108,9 @@ export default async function SpellRender({
     <div
       className="relative box-border h-[358px] min-h-0 w-[250px] overflow-hidden rounded border border-2 border-solid bg-white font-sans antialiased"
       style={{ borderColor: color }}
+      key={`spell-render-${name}`}
     >
-      <CornerStarIcon
+      {/* <CornerStarIcon
         className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2"
         style={{ fill: color }}
       />
@@ -124,7 +125,7 @@ export default async function SpellRender({
       <CornerStarIcon
         className="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2"
         style={{ fill: color }}
-      />
+      /> */}
       <div className="h-full p-2">
         <p
           className="mx-1 -mt-1 mb-2 border-0 border-b-2 border-solid text-center text-lg font-bold"
@@ -132,7 +133,6 @@ export default async function SpellRender({
         >
           <span className={mirza.className}>{name}</span>
         </p>
-        {/* <CardDivider style={{ fill: color }} /> */}
         <div className={metaGridClass}>
           <MetaInformation
             color={color}
@@ -157,13 +157,6 @@ export default async function SpellRender({
           {damage && (
             <MetaInformation color={color} type="damage" content={damage} />
           )}
-          {/* {damage && (
-            <MetaInformation
-              color={color}
-              type="damage"
-              content={parseDamageAtLevel(damage)}
-            />
-          )} */}
         </div>
         <div
           className="mx-1 mb-1 mt-1 border-0 border-b-2 border-solid text-center text-lg font-bold"

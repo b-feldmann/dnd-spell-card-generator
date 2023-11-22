@@ -11,8 +11,8 @@ export default async function SuspendingSpellCard({
   dndClass: SpellCastingClass;
 }) {
   return (
-    <Suspense fallback={<SpellRender spell={EmptySpell} dndClass={dndClass} />}>
-      <SpellCard spellName={spellName} dndClass={dndClass} />
-    </Suspense>
+    // <Suspense fallback={<SpellRender spell={EmptySpell} dndClass={dndClass} />}>
+    <SpellCard spellName={spellName} dndClass={dndClass} />
+    // </Suspense>
   );
 }

@@ -20,17 +20,19 @@ export default function ScaleToParent({
         width: "auto",
         height: "auto",
       }}
-      onResize={({ width }) => {
-        // @ts-ignore
-        if (ref?.current?.props?.style) {
-          // @ts-ignore
-          ref.current.props.style.width = `${width}px`;
-          // @ts-ignore
-          ref.current.props.style.height = `${
-            CARD_HEIGHT * resizeFactor(width)
-          }px`;
-        }
-      }}
+      defaultWidth={2}
+      defaultHeight={3}
+      // onResize={({ width }) => {
+      //   // @ts-ignore
+      //   if (ref?.current?.props?.style) {
+      //     // @ts-ignore
+      //     ref.current.props.style.width = `${width}px`;
+      //     // @ts-ignore
+      //     ref.current.props.style.height = `${
+      //       CARD_HEIGHT * resizeFactor(width)
+      //     }px`;
+      //   }
+      // }}
     >
       {({ width }) => {
         return (

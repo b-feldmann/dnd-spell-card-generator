@@ -28,11 +28,14 @@ const getAreaOfEffectDescription = (areaOfEffect?: Dnd5eSpellAreaOfEffect) => {
 async function getSpell(spellName: string, dndClass: SpellCastingClass) {
   if (!spellName) return EmptySpell;
 
+  console.log(spellName);
+
   const res = await fetch(`https://www.dnd5eapi.co/api/spells/${spellName}`, {
     cache: "force-cache",
   });
 
   if (!res.ok) {
+    console.log("no hit");
     const dbList: Spell[] = await readClassSpellList(dndClass);
     return (
       dbList.find((spell) => {

@@ -68,8 +68,9 @@ export default async function SpellRender({
 
   const parseMarkdown = (content: string) => {
     const boldRegex = /(\*\*\*.*\*\*\*)|(<b>.*<\/b>)/g;
-    const italicRegex = /(<i>.*<\/i>|\(?[1-9]?[0-9]d[1-9]?[0-9]\)?)/g;
+    const italicRegex = /(<i>.*<\/i>|\(?[1-9]?[0-9]?d[1-9]?[0-9]\)?)/g;
     const splicedContent = content
+      .replaceAll("--", " — ")
       .split(boldRegex)
       .filter((line) => line && line.length > 0)
       .flatMap((line) => line.split(italicRegex))
@@ -80,7 +81,7 @@ export default async function SpellRender({
             <span
               key={genKey(line)}
               className={mirza.className}
-              style={{ fontSize: "1.3em" }}
+              style={{ fontSize: "1.2em" }}
             >
               {line.replaceAll(/\*\*\*|<b>|<\/b>/g, "")}
             </span>
@@ -103,10 +104,10 @@ export default async function SpellRender({
   const useMaterial = material?.includes("which the spell consumes");
 
   const materialSpan = (
-    <span style={{ fontSize: "0.7em" }}>{` (${material?.replace(
-      /, which the spell consumes\.?/,
-      "",
-    )})`}</span>
+    <span
+      className="italic"
+      style={{ fontSize: "0.7em" }}
+    >{` (${material?.replace(/, which the spell consumes\.?/, "")})`}</span>
   );
 
   const componentsSpan = (
@@ -120,17 +121,38 @@ export default async function SpellRender({
     (desc?.reduce((acc, current) => acc + current.length, 0) ?? 0) +
     (atHigherLevel?.reduce((acc, current) => acc + current.length, 0) ?? 0);
 
-  const useSmallMetaInfo = descWordCount > 1000 && !material;
+  const useSmallMetaInfo = descWordCount > 1000 && !useMaterial;
+  const useAllAvailableSpace = descWordCount > 1400;
 
   const textResizeClass = classNames({
-    "!h-[224px]": !damage && !useSmallMetaInfo,
-    "!h-[209px]": !!damage && !useSmallMetaInfo,
-    "!h-[254px]": !damage && useSmallMetaInfo,
-    "!h-[239px]": !!damage && useSmallMetaInfo,
+    "!h-[279px]": !damage && useSmallMetaInfo && useAllAvailableSpace,
+    "!h-[264px]": !!damage && useSmallMetaInfo && useAllAvailableSpace,
+    "!h-[249px]":
+      (!damage && !useSmallMetaInfo && useAllAvailableSpace) ||
+      (!!damage && useSmallMetaInfo && !useAllAvailableSpace),
+    "!h-[234px]": !!damage && !useSmallMetaInfo && useAllAvailableSpace,
+    "!h-[265px]": !damage && useSmallMetaInfo && !useAllAvailableSpace,
+    // "!h-[249px]": !!damage && useSmallMetaInfo && !useAllAvailableSpace,
+    "!h-[235px]": !damage && !useSmallMetaInfo && !useAllAvailableSpace,
+    "!h-[219px]": !!damage && !useSmallMetaInfo && !useAllAvailableSpace,
   });
 
   const metaGridClass = classNames("grid", "text-[11px]", {
     "grid-cols-2": useSmallMetaInfo,
+  });
+
+  const borderPaddingClass = classNames({
+    "p-2": !useAllAvailableSpace,
+  });
+
+  const titleClass = classNames("mx-1 text-center text-lg font-bold", {
+    "-mt-1 mb-1": !useAllAvailableSpace,
+    "-mt-2 mb-0.5": useAllAvailableSpace,
+  });
+
+  const atHigherLevelClass = classNames({
+    "text-xs -mb-0.5 mt-1": !useAllAvailableSpace,
+    "-mb-0.5 -mt-1": useAllAvailableSpace,
   });
 
   return (
@@ -155,13 +177,14 @@ export default async function SpellRender({
         className="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2"
         fill={color}
       />
-      <div className="h-full p-2">
-        <p
-          className="mx-1 -mt-1 mb-2 border-0 border-b-2 border-solid text-center text-lg font-bold"
-          style={{ borderColor: color }}
-        >
+      <div className={borderPaddingClass}>
+        <p className={titleClass} style={{ borderColor: color }}>
           <span className={mirza.className}>{name}</span>
         </p>
+        <div
+          className="mx-1 -mt-1.5 mb-1 border-0 border-b-2 border-solid text-center text-lg font-bold"
+          style={{ borderColor: color }}
+        ></div>
         <div className={metaGridClass}>
           <MetaInformation
             color={color}
@@ -188,7 +211,7 @@ export default async function SpellRender({
           )}
         </div>
         <div
-          className="mx-1 mb-1 mt-1 border-0 border-b-2 border-solid text-center text-lg font-bold"
+          className="mx-1 mb-1 mt-0.5 border-0 border-b-2 border-solid text-center text-lg font-bold"
           style={{ borderColor: color }}
         ></div>
 
@@ -200,8 +223,8 @@ export default async function SpellRender({
               </p>
             ))}
             {atHigherLevel && atHigherLevel.length > 0 && (
-              <p className="-mb-0.5 mt-1">
-                <span className={mirza.className} style={{ fontSize: "1.3em" }}>
+              <p className={atHigherLevelClass}>
+                <span className={mirza.className} style={{ fontSize: "1.1em" }}>
                   At Higher Levels:
                 </span>
               </p>

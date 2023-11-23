@@ -43,8 +43,7 @@ export default async function SpellList({
   });
 
   const spellFilter = (spell: SpellListEntry) => {
-    const parsedSpellName = spell.name.toLowerCase().split(/ |\//).join("-");
-    return !skipSpells.includes(`${parsedSpellName}/${dndClass}`);
+    return !skipSpells.includes(`${spell.url}/${dndClass}`);
   };
 
   const filteredSpells = spellList.filter(spellFilter);

@@ -25,7 +25,7 @@ const getAreaOfEffectDescription = (areaOfEffect?: Dnd5eSpellAreaOfEffect) => {
   return type + " " + size;
 };
 
-async function getSpell(spellName: string, dndClass: SpellCastingClass) {
+export async function getSpell(spellName: string, dndClass: SpellCastingClass) {
   if (!spellName) return EmptySpell;
 
   const res = await fetch(`https://www.dnd5eapi.co/api/spells/${spellName}`, {

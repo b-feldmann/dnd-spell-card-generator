@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import StyledComponentsRegistry from "@/app/components/AntdRegistry";
 
 import "./globals.css";
+import "./rpg-icons.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

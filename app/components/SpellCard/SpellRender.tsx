@@ -12,6 +12,8 @@ import MetaInformation from "./MetaInformation";
 import { capitalizeFirstLetter } from "@/app/lib/spellUtils";
 import fastHashCode from "fast-hash-code";
 
+import styles from "./styles.module.scss";
+
 const mirza = Mirza({
   subsets: ["latin"],
   weight: "600",
@@ -69,7 +71,9 @@ export default async function SpellRender({
   const parseMarkdown = (content: string) => {
     const boldRegex = /(\*\*\*.*\*\*\*)|(<b>.*<\/b>)/g;
     const italicRegex = /(<i>.*<\/i>|\(?[1-9]?[0-9]?d[1-9]?[0-9]\)?)/g;
+    const enumerationRegex = /^- /;
     const splicedContent = content
+      .replace(enumerationRegex, "")
       .replaceAll("--", " — ")
       .split(boldRegex)
       .filter((line) => line && line.length > 0)
@@ -96,6 +100,10 @@ export default async function SpellRender({
         return line;
       });
 
+    if (content.match(enumerationRegex)) {
+      return <span className={styles.descEnumeration}>{splicedContent}</span>;
+    }
+
     return <span>{splicedContent}</span>;
   };
 
@@ -107,7 +115,10 @@ export default async function SpellRender({
     <span
       className="italic"
       style={{ fontSize: "0.7em" }}
-    >{` (${material?.replace(/, which the spell consumes\.?/, "")})`}</span>
+    >{` (${material?.replace(
+      /,( all of)? which the spell consumes\.?/,
+      "",
+    )})`}</span>
   );
 
   const componentsSpan = (

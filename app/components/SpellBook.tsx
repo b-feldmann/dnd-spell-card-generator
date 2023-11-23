@@ -4,15 +4,18 @@ import { SpellAndClass } from "@/types/spell";
 import RemoveSpellButton from "./RemoveSpellButton/RemoveSpellButton";
 import ScalingSpellCard from "./ScalingSpellCard";
 import SpellCard from "./SpellCard/SpellCard";
+import BackSideRender from "./BackSideRender/BackSideRender";
 
 export default function SpellBook({
   spellsAndClasses,
   columns,
   print,
+  includeBackSide,
 }: {
   spellsAndClasses: SpellAndClass[];
   columns: number;
   print?: boolean;
+  includeBackSide?: boolean;
 }) {
   const gridClass = classNames({
     grid: true,
@@ -31,7 +34,10 @@ export default function SpellBook({
     const { spell: name, dndClass } = spellAndClass;
 
     if (print) {
-      return <SpellCard spellName={name} dndClass={dndClass} />;
+      return [
+        <SpellCard spellName={name} dndClass={dndClass} />,
+        <BackSideRender spellKey={name} dndClass={dndClass} />,
+      ];
     }
 
     return (

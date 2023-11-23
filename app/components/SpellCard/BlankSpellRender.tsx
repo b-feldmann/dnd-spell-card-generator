@@ -4,7 +4,7 @@ import React, { Suspense } from "react";
 
 import CornerStarSvg from "../../../public/cornerStar.svg";
 
-export default async function SpellRender({
+export default async function BlankSpellRender({
   spellKey,
   dndClass,
   children,

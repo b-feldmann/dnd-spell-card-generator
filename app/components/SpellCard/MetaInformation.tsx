@@ -35,7 +35,7 @@ export default function MetaInformation({
           {type === "damage" && <DamageSvg fill={color} />}
         </Suspense>
       </p>
-      <p className="m-0">
+      <p className="m-0 truncate">
         <span className={mirzaLight.className}>{content}</span>
       </p>
     </div>

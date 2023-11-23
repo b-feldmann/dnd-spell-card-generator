@@ -1,0 +1,9 @@
+.descEnumeration {
+  list-style-type: none;
+}
+
+.descEnumeration:before {
+  content: "\2014";
+  margin-left: 2px;
+  margin-right: 4px;
+}

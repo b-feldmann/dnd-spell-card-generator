@@ -8,9 +8,11 @@ import AddSpellButton from "../AddSpellButton/AddSpellButton";
 export default function SpellListRender({
   spells,
   dndClass,
+  printClassName,
 }: {
   spells: SpellListEntry[];
   dndClass: SpellCastingClass;
+  printClassName: boolean;
 }) {
   const getLevelList = (lvl: number) => {
     return spells
@@ -52,6 +54,7 @@ export default function SpellListRender({
                       link={item.url.substring(item.url.lastIndexOf("/") + 1)}
                       spellName={item.name}
                       dndClass={dndClass}
+                      printClassName={printClassName}
                     />
                   </List.Item>
                 )}

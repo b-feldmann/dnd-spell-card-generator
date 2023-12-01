@@ -1,17 +1,4 @@
-export type SpellCastingClass =
-  | "artificer"
-  | "bard"
-  | "cleric"
-  | "druid"
-  | "paladin"
-  | "ranger"
-  | "sorcerer"
-  | "warlock"
-  | "wizard";
+import { spellCastingClasses, dndClasses } from "./types";
 
-export type DndClass =
-  | spellCastingClass
-  | "barbarian"
-  | "fighter"
-  | "monk"
-  | "rouge";
+export type SpellCastingClass = (typeof spellCastingClasses)[number];
+export type DndClass = (typeof dndClasses)[number];

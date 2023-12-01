@@ -11,10 +11,12 @@ export default function AddSpellButton({
   spellName,
   link,
   dndClass,
+  printClassName,
 }: {
   spellName: string;
   link: string;
   dndClass: SpellCastingClass;
+  printClassName?: boolean;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -59,7 +61,12 @@ export default function AddSpellButton({
 
   return (
     <Button type="primary" className={buttonClass} onClick={addSpell}>
-      {spellName}
+      <div className="flex w-full justify-between">
+        {spellName}
+        {printClassName && (
+          <span className="self-center text-xs">{dndClass}</span>
+        )}
+      </div>
     </Button>
   );
 }

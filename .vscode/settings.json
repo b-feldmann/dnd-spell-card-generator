@@ -7,11 +7,21 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": ["antd"],
+  "cSpell.words": [
+    "antd",
+    "Dragonborn",
+    "Halfling",
+    "Lightfoot",
+    "Tiefling",
+    "Tortle"
+  ],
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[xml]": {
     "editor.defaultFormatter": "redhat.vscode-xml"
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
   }
 }

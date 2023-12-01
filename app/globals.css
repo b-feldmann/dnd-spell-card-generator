@@ -16,6 +16,14 @@
   }
 }
 
+html {
+  height: 100vh;
+}
+
+body {
+  height: calc(100% - 16px);
+}
+
 /* Works on Firefox */
 * {
   scrollbar-width: 20px;

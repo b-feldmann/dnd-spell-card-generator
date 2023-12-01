@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Class {
+  name         String         @id @unique
+  ClassAtLevel ClassAtLevel[]
+  Spell        Spell[]
+}
+
+model Race {
+  name String @id @unique
+  Hero Hero[]
+}
+
+model Spell {
+  name      String
+  class     Class  @relation(fields: [className], references: [name])
+  className String
+
+  @@id([className, name])
+}
+
+model ClassAtLevel {
+  class     Class  @relation(fields: [className], references: [name])
+  level     Int
+  Hero      Hero   @relation(fields: [heroId], references: [id])
+  heroId    Int
+  className String
+
+  @@id([className, heroId])
+}
+
+model Hero {
+  id       Int            @id @default(autoincrement())
+  name     String         @unique
+  race     Race           @relation(fields: [raceName], references: [name])
+  classes  ClassAtLevel[]
+  raceName String
+}

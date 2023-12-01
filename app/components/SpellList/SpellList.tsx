@@ -4,6 +4,7 @@ import { SpellCastingClass } from "@/types/classes";
 import Spell, { SpellListEntry } from "@/types/spell";
 import ChooseClass from "../ChooseClass";
 import SpellListRender from "./SpellListRender";
+import { ClassAtLevel } from "@prisma/client";
 
 // async function getSpells(dndClass: SpellCastingClass) {
 //   const res = await fetch(
@@ -17,6 +18,19 @@ import SpellListRender from "./SpellListRender";
 //   return res.json();
 // }
 
+function toClassAtLevelArray(
+  dndClass: SpellCastingClass | ClassAtLevel | ClassAtLevel[],
+): ClassAtLevel[] {
+  if (typeof dndClass === "string") {
+    return [{ className: dndClass, level: 20, heroId: 0 }];
+  }
+
+  if (Array.isArray(dndClass)) {
+    return dndClass;
+  }
+  return [dndClass];
+}
+
 async function getSpells(
   dndClass: SpellCastingClass,
   skipSpells: string[] = [],
@@ -29,6 +43,7 @@ async function getSpells(
       name: raw.name,
       url: spellNameToUrl(raw.name),
       level: raw.level,
+      dndClass,
     };
   };
 
@@ -54,7 +69,7 @@ export default async function SpellList({
   printClassName = false,
 }: {
   skipSpells: string[];
-  dndClass: SpellCastingClass;
+  dndClass: SpellCastingClass | ClassAtLevel | ClassAtLevel[];
   maxLevel?: number;
   disableClassSelect?: boolean;
   printClassName?: boolean;
@@ -63,15 +78,22 @@ export default async function SpellList({
   //   (res) => res.results,
   // );
 
-  const spellList: SpellListEntry[] = await getSpells(
-    dndClass,
-    skipSpells,
-    maxLevel,
-  );
+  const spellList: SpellListEntry[] = [];
+
+  const classesAtLevel = toClassAtLevelArray(dndClass);
+  for (const i in classesAtLevel) {
+    const classAtLevel = classesAtLevel[i];
+    const dbListForClass: SpellListEntry[] = await getSpells(
+      classAtLevel.className as SpellCastingClass,
+      skipSpells,
+      classAtLevel.level,
+    );
+    spellList.push(...dbListForClass);
+  }
 
   return (
     <div className="max-h-screen">
-      {!disableClassSelect && (
+      {!disableClassSelect && typeof dndClass === "string" && (
         <h2>
           List of <ChooseClass initialClass={dndClass} /> spells
         </h2>
@@ -80,11 +102,7 @@ export default async function SpellList({
         className="overflow-auto scroll-smooth"
         style={{ height: "calc(100vh - 90px)" }}
       >
-        <SpellListRender
-          spells={spellList}
-          dndClass={dndClass}
-          printClassName={printClassName}
-        />
+        <SpellListRender spells={spellList} printClassName={printClassName} />
       </div>
     </div>
   );

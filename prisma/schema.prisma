@@ -22,11 +22,12 @@ model Race {
 }
 
 model Spell {
-  name      String
-  class     Class  @relation(fields: [className], references: [name])
-  className String
+  name         String
+  class        Class          @relation(fields: [className], references: [name])
+  className    String
+  LearnedSpell LearnedSpell[]
 
-  @@id([className, name])
+  @@id([name, className])
 }
 
 model ClassAtLevel {
@@ -39,10 +40,21 @@ model ClassAtLevel {
   @@id([className, heroId])
 }
 
+model LearnedSpell {
+  hero           Hero   @relation(fields: [heroId], references: [id])
+  spell          Spell  @relation(fields: [spellName, spellClassName], references: [name, className])
+  heroId         Int
+  spellName      String
+  spellClassName String
+
+  @@id([heroId, spellName])
+}
+
 model Hero {
-  id       Int            @id @default(autoincrement())
-  name     String         @unique
-  race     Race           @relation(fields: [raceName], references: [name])
-  classes  ClassAtLevel[]
-  raceName String
+  id           Int            @id @default(autoincrement())
+  name         String         @unique
+  race         Race           @relation(fields: [raceName], references: [name])
+  classes      ClassAtLevel[]
+  raceName     String
+  LearnedSpell LearnedSpell[]
 }

@@ -52,12 +52,12 @@ export default async function Heroes({
   return (
     <ConfigProvider theme={theme}>
       <div className="grid h-full grid-cols-12 gap-1">
-        <div className="col-span-2 flex flex-col justify-between">
+        <div className="col-span-2 m-1 flex flex-col justify-between rounded border border-2 border-solid p-2">
           <HeroListRender heroes={heroes} />
           <CreateHeroForm />
         </div>
-        <div className="col-span-10">
-          {currentHero && (
+        {currentHero && (
+          <div className="col-span-10">
             <div className="flex">
               {currentHero.classes.map((classAtLevel) => (
                 <ClassLevelSelect
@@ -66,22 +66,21 @@ export default async function Heroes({
                 />
               ))}
             </div>
-          )}
-          <div className="grid grid-cols-11 gap-1">
-            <div className="col-span-2">
-              <SpellList
-                skipSpells={[]}
-                maxLevel={currentHero?.classes[0].level}
-                dndClass={currentHero?.classes[0].className}
-                disableClassSelect
-                printClassName
-              />
-            </div>
-            <div className="col-span-9">
-              <SpellBook spellsAndClasses={[]} columns={3} />
+            <div className="grid grid-cols-12 gap-1">
+              <div className="col-span-3">
+                <SpellList
+                  skipSpells={[]}
+                  dndClass={currentHero?.classes}
+                  disableClassSelect
+                  printClassName
+                />
+              </div>
+              <div className="col-span-9">
+                <SpellBook spellsAndClasses={[]} columns={3} />
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </ConfigProvider>
   );

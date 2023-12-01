@@ -72,6 +72,7 @@ export interface SpellListEntry {
   name: string;
   url: string;
   level?: number;
+  dndClass: SpellCastingClass;
 }
 
 export interface SpellAndClass {

@@ -19,8 +19,15 @@ export default function SelectHeroButton({ heroName }: { heroName: string }) {
     router.push(`${pathname}${query}`);
   };
 
+  const disabled = new URLSearchParams(searchParams).get("hero") === heroName;
+
   return (
-    <Button type="primary" className="w-full !text-left" onClick={selectHero}>
+    <Button
+      type="primary"
+      className="w-full !text-left"
+      onClick={selectHero}
+      disabled={disabled}
+    >
       {heroName}
     </Button>
   );

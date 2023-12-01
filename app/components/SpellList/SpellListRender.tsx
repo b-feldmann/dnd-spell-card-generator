@@ -7,11 +7,9 @@ import AddSpellButton from "../AddSpellButton/AddSpellButton";
 
 export default function SpellListRender({
   spells,
-  dndClass,
   printClassName,
 }: {
   spells: SpellListEntry[];
-  dndClass: SpellCastingClass;
   printClassName: boolean;
 }) {
   const getLevelList = (lvl: number) => {
@@ -42,7 +40,7 @@ export default function SpellListRender({
         .map((level) => {
           return (
             <div key={`spell-list-block-${level}`}>
-              <p>Level {level}</p>
+              <p>{level === 0 ? "Cantrips" : `Level ${level}`}</p>
               <List
                 key={`spell-list-${level}`}
                 size="small"
@@ -53,7 +51,7 @@ export default function SpellListRender({
                     <AddSpellButton
                       link={item.url.substring(item.url.lastIndexOf("/") + 1)}
                       spellName={item.name}
-                      dndClass={dndClass}
+                      dndClass={item.dndClass}
                       printClassName={printClassName}
                     />
                   </List.Item>

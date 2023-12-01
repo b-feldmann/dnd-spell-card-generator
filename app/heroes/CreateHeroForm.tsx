@@ -21,13 +21,8 @@ export async function createHero(formData: FieldType) {
     return {
       level: 0,
       class: {
-        connectOrCreate: {
-          where: {
-            name: dndClass,
-          },
-          create: {
-            name: dndClass,
-          },
+        connect: {
+          name: dndClass,
         },
       },
     };
@@ -37,13 +32,8 @@ export async function createHero(formData: FieldType) {
     data: {
       name: name,
       race: {
-        connectOrCreate: {
-          where: {
-            name: raceName,
-          },
-          create: {
-            name: raceName,
-          },
+        connect: {
+          name: raceName,
         },
       },
       classes: {

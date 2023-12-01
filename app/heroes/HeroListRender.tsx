@@ -8,7 +8,7 @@ export default function HeroListRender({
 }: {
   heroes: { name: string }[];
 }) {
-  console.log(heroes);
+  // console.log(heroes);
 
   return (
     <List

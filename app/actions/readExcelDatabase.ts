@@ -9,8 +9,11 @@ import {
   generateDamageType,
   generateMaterial,
 } from "../lib/spellUtils";
+import { spellCastingClasses } from "@/types/types";
 
 export const readClassSpellList = cache(async (dndClass: SpellCastingClass) => {
+  if (!spellCastingClasses.includes(dndClass)) return [];
+
   const records = [];
   const parser = fs
     .createReadStream(
